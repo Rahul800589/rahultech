@@ -1,0 +1,87 @@
+// {
+//   "files": [],
+//   "references": [
+//     { "path": "./tsconfig.app.json" },
+//     { "path": "./tsconfig.node.json" }
+//   ]
+// }
+// {
+//   "compilerOptions": {
+//      "jsx": "react-jsx",  
+//     "allowJs": true,
+//     "module": "ESNext",
+//     "target": "ESNext",
+//         "types": ["react"]
+// ,
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["src/*"]
+//     }
+//   },
+//   "include": ["src"]
+// }
+
+
+
+
+// {
+//   "compilerOptions": {
+//     "target": "ES2022",
+//     "lib": ["ES2022", "DOM", "DOM.Iterable"],
+//     "module": "ESNext",
+//     "jsx": "react-jsx",
+//     "moduleResolution": "bundler",
+//     "strict": true,
+//     "skipLibCheck": true,
+//     "allowImportingTsExtensions": true,
+//     "allowJs": true,
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["src/*"]
+//     }
+//   },
+//   "include": ["src"]
+// }
+
+// {
+//   "compilerOptions": {
+//     "target": "ES2022",
+//     "lib": ["ES2022", "DOM", "DOM.Iterable"],
+//     "module": "ESNext",
+//     "jsx": "react-jsx",
+//     "moduleResolution": "bundler",
+//     "strict": true,
+//     "skipLibCheck": true,
+//     "allowJs": true,
+//     "baseUrl": ".",
+//     "paths": {
+//       "@/*": ["src/*"]
+//     }
+//   },
+//   "include": ["src"]
+// }
+
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "jsx": "react-jsx",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "checkJs": false,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  // "include": ["src", "**/*.jsx", "**/*.tsx"]
+  "include": [ "src","global.d.ts"]
+
+}
+
+
+
