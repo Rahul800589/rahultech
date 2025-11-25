@@ -1,812 +1,829 @@
 
 
 
-// import React from "react";
-// import { Linkedin, Github, Mail } from "lucide-react";
-// import { useNavigate } from 'react-router-dom'; 
+// import React, { useEffect } from "react";
+// import AOS from "aos";
+// import "aos/dist/aos.css";
+// import { useNavigate } from "react-router-dom";
 
 // const About: React.FC = () => {
-//   const navigate = useNavigate();
+//   const navigate = useNavigate();
 
-//   const teamMembers = [
-//     {
-//       name: 'Pramod Saini',
-//       role: 'Senior Frontend Developer',
-//       description: '6 months in frontend development with strong UI experience.',
-//       imgSrc: './src/assets/Pramod.png',
-//       imgAlt: 'Pramod Saini',
-//       linkedin: 'https://www.linkedin.com/in/pramod-saini-0577a5229/',
-//       mail: 'mailto:pramod@ats global tech.com',
-//       github: 'https://github.com/Pramod-saini',
-//       navigationPath: '/team-members', 
-//     },
-//     {
-//       name: 'Aadarsh Sharma',
-//       role: 'Senior Frontend Developer',
-//       description: 'Expert in React JS & modern web design.',
-//       imgSrc: 'src/assets/Aadarsh.png',
-//       imgAlt: 'Aadarsh Sharma',
-//       linkedin: 'https://www.linkedin.com/in/aadarsh-sharma-4a5aba336/',
-//       mail: 'mailto:aadarsh@ats global tech.com',
-//       github: 'https://github.com/Aadarsh1511',
-//       navigationPath: '/team-members2', 
-//     },
-//     {
-//       name: 'Aakash Kumawat',
-//       role: 'Senior Backend Developer',
-//       description: 'Backend developer with enterprise-level experience.',
-//       imgSrc: 'src/assets/Aakash.jpeg',
-//       imgAlt: 'Aakash Kumawat',
-//       linkedin: 'https://linkedin.com/in/akshmat243',
-//       mail: 'mailto:aakash@ats global tech.com',
-//       github: 'https://github.com/akshmat243',
-//       navigationPath: '/team-members3',
-//     },
-//     {
-//       name: 'Ram Parik',
-//       role: ' Backend Developer',
-//       description: 'Passion for clean & scalable backend development.',
-//       imgSrc: 'src/assets/Ram.png',
-//       imgAlt: 'Ram Parik',
-//       linkedin: 'https://www.linkedin.com/in/ram-parik -22411a308',
-//       mail: 'mailto:raj@ats global tech.com',
-//       github: 'https://share.google/tKqAjkPqBtKgtdqOJ', 
-//       navigationPath: '/team-members4',
-//     },
-//   ];
+//   useEffect(() => {
+//     AOS.init({ duration: 900, once: true, easing: "ease-out-cubic" });
+//   }, []);
 
-//  
+//   const teamMembers = [
+//     {
+//       name: "Pramod Saini",
+//       role: "Senior Frontend Developer",
+//       description:
+//         "06 months in tech leadership, former SudoTechlabs engineer with expertise in scalable systems.",
+//       imgSrc: "./Pramod.png",
+//       imgAlt: "Pramod Saini",
+//       navigationPath: "/team-members",
+//       skills: ["React", "Tailwind", "JavaScript", "UI/UX"],
+//     },
+//     {
+//       name: "Aakash Kumawat",
+//       role: "Senior Backend Developer",
+//       description:
+//         "Enterprise backend engineer with expertise in distributed systems & APIs.",
+//       imgSrc: "./Aakash.jpeg",
+//       imgAlt: "Aakash Kumawat",
+//       navigationPath: "/team-members3",
+//       skills: ["Python", "Django", "MySql", "System Design"],
+//     },
+//     {
+//       name: "Rahul Kumawat",
+//       role: "MERN Stack Developer",
+//       description:
+//         "MERN developer skilled in building scalable full-stack applications.",
+//       imgSrc: "./Rahul5.jpg",
+//       imgAlt: "Rahul Kumar",
+//       navigationPath: "/team-members2",
+//       skills: ["React", "Node.js", "MongoDB", "Express.js"],
+//     },
+//     {
+//       name: "Kamlesh Kumar Sharma",
+//       role: "Full Stack Developer",
+//       description:
+//         "Full Stack developer skilled in building scalable digital solutions.",
+//       imgSrc: "./kamal1.jpg",
+//       imgAlt: "Kamlesh Sharma",
+//       navigationPath: "/team-members4",
+//       skills: ["JS","React", "c#", ".NET", "MySQL"],
+//     },
+//   ];
 
-//   return (
-//     <div
-//       className="min-h-screen bg-gradient-to-r from-[#1a2e49] to-[#32445b]
-//   text-white"
-//     >
-//       {/* Hero Section */}
-//       <section className="py-32 lg:py-28 text-white text-center">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-//             About <span className="text-orange-400">ATS GLOBAL TECH</span>
-//           </h1>
-//           <p className="text-xl mb-8 max-w-3xl mx-auto">
-//             We are a team of passionate technologists, designers, and innovators
-//             committed to transforming businesses through cutting-edge technology
-//             solutions.
-//           </p>
-//         </div>
-//       </section>
+//   return (
+//     <div className="bg-white text-gray-900" style={{ fontFamily: "Times New Roman, serif" }}>
+      
+//       {/* ---------------- HERO ---------------- */}
+//       <section
+//         className="relative py-20 text-center flex items-center justify-center"
+//       >
+//         <div
+//           className="absolute inset-0 bg-cover bg-center"
+//           style={{
+//             backgroundImage:
+//               "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80')",
+//           }}
+//         ></div>
 
-//       {/* Vision & Mission */}
-//       <section className="py-20 bg-white/10 backdrop-blur-sm rounded-3xl max-w-7xl mx-auto my-12 text-gray-100 shadow-lg">
-//         <div className="grid grid-cols-1 gap-12 px-6 lg:px-8">
-//           {/* Vision */}
-//           <div className="rounded-xl bg-white/10 p-6 backdrop-blur-md border border-white/20">
-//             <h3 className="text-2xl font-semibold text-orange-400 mb-4 text-center">
-//               Our Vision
-//             </h3>
-//             <p className="text-lg text-gray-200 leading-relaxed text-center">
-//               To be the world's most trusted technology partner, recognized for
-//               our innovation, integrity, and impact. We envision a future where
-//               every business can leverage technology to create meaningful value.
-//             </p>
-//           </div>
+//         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
 
-//           {/* Mission */}
-//           <div className="rounded-xl bg-white/10 p-6 backdrop-blur-md border border-white/20">
-//             <h3 className="text-2xl font-semibold text-orange-400 mb-4 text-center">
-//               Our Mission
-// </h3>
-// {/*             </b> */}
-//             <p className="text-lg text-gray-200 leading-relaxed text-center">
-//               To empower businesses worldwide with innovative technology
-//               solutions that drive growth, efficiency, and transformation. We
-//               make advanced tech accessible to organizations of all sizes.
-//             </p>
-//           </div>
-//         </div>
-//       </section>
+//         <div className="relative max-w-6xl mx-auto px-4">
+//           <h1
+//             className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-teal-500 text-transparent bg-clip-text"
+//           >
+//             About <span className="text-white">ATS GLOBAL TECH</span>
+//           </h1>
 
-//       {/* CEO Section */}
-//       <section className="py-20 max-w-7xl mx-auto px-6 lg:px-8 my-12 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 text-gray-100">
-//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-//           <div className="relative">
-// {/*             <img
-//               src="https://images.unsplash.com/photo-1480429370139-e0132c086e2a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFufGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600"
-//               alt="Aryan Singh - CEO"
-//               className="w-full max-w-md mx-auto rounded-2xl shadow-xl"
-//             /> */}
-             
-//           </div>
+//           <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+//             ATS Global Tech empowers businesses through innovation, digital
+//             transformation, and future-ready software engineering.
+//           </p>
 
-//           <div>
-//             <div className="mb-8">
-//               <blockquote className="text-2xl md:text-3xl font-light text-gray-300 italic leading-relaxed mb-6">
-//                 "Technology should empower businesses to achieve their wildest
-//                 dreams. At ats global tech, we don't just build software – we craft
-//                 digital experiences that transform industries."
-//               </blockquote>
-// {/*               </b> */}
-//             </div>
-//             <div className="space-y-6">
-//               <div>
-//                 <h3 className="text-3xl font-bold text-gray-100 mb-2">
-//                   Aryan Singh
-//                 </h3>
-//                 <p className="text-xl text-orange-600 font-semibold mb-4">
-//                   CEO &amp; Founder
-//                 </p>
-//               </div>
-//               <div className="prose prose-lg text-gray-400">
-//                 <p className="mb-4">
-//                   With over 15 years of experience in the technology industry,
-//                   Aryan founded ats global tech with a vision to bridge the gap
-//                   between innovative technology and practical business
-//                   solutions. As a former senior engineer at{" "}
-//                   <span className="text-orange-500 text-xl underline">
-//                     {" "}
-//                     Infosys
-//                   </span>
-//                   , he brings deep technical expertise combined with strategic
-//                   business acumen.
-//                 </p>
-//                 <p className="mb-4">
-//                   Under Aryan's leadership, ats global tech has grown from a
-//                   two-person startup to a globally recognized technology
-//                   consultancy, serving Fortune 500 companies and innovative
-//                   startups alike. His passion for emerging technologies and
-//                   commitment to excellence has been the driving force behind the
-//                   company's success.
-//                 </p>
-//                 <p>
-//                   Aryan holds a Master's degree in Computer Science from Stanford
-//                   University and is a frequent speaker at technology conferences
-//                   worldwide. When he's not revolutionizing businesses through
-//                   technology, you can find him mentoring young entrepreneurs or
-//                   exploring the latest in AI and machine learning.
-//                 </p>
-//               </div>
-//               <div className="flex items-center space-x-4 pt-4">
-//                 <a
-//                   href="#"
-//                   className="text-orange-600 hover:text-orange-800 transition-colors"
-//                 >
-//                   <svg
-//                     xmlns="http://www.w3.org/2000/svg"
-//                     width="24"
-//                     height="24"
-//                     viewBox="0 0 24 24"
-//                     fill="none"
-//                     stroke="currentColor"
-//                     strokeWidth="2"
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     className="lucide lucide-linkedin h-6 w-6"
-//                   >
-//                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-//                     <rect width="4" height="12" x="2" y="9"></rect>
-//                     <circle cx="4" cy="4" r="2"></circle>
-//                   </svg>
-//                 </a>
-//                 <a
-//                   href="mailto:alex@ats global tech.com"
-//                   className="text-orange-600 hover:text-orange-800 transition-colors"
-//                 >
-//                   <svg
-//                     xmlns="http://www.w3.org/2000/svg"
-//                     width="24"
-//                     height="24"
-//                     viewBox="0 0 24 24"
-//                     fill="none"
-//                     stroke="currentColor"
-//                     strokeWidth="2"
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     className="lucide lucide-mail h-6 w-6"
-//                   >
-//                     <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-//                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-//                   </svg>
-//                 </a>
-//                 <a
-//                   href="#"
-//                   className="text-orange-600 hover:text-orange-800 transition-colors"
-//                 >
-//                   <svg
-//                     xmlns="http://www.w3.org/2000/svg"
-//                     width="24"
-//                     height="24"
-//                     viewBox="0 0 24 24"
-//                     fill="none"
-//                     stroke="currentColor"
-//                     strokeWidth="2"
-//                     strokeLinecap="round"
-//                     strokeLinejoin="round"
-//                     className="lucide lucide-github h-6 w-6"
-//                   >
-//                     <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-//                     <path d="M9 18c-4.51 2-5-2-7-2"></path>
-//                   </svg>
-//                 </a>
-//               </div>
-//               <div className="grid grid-cols-3 gap-4 pt-6">
-//                 <div className="text-center p-4 bg-gray-500 rounded-lg shadow-md">
-//                   <div className="text-2xl font-bold text-orange-600">15+</div>
-//                   <div className="text-sm text-gray-200">Years Experience</div>
-//                 </div>
-//                 <div className="text-center p-4 bg-gray-500 rounded-lg shadow-md">
-//                   <div className="text-2xl font-bold text-orange-600">500+</div>
-//                   <div className="text-sm text-gray-200">Projects Led</div>
-//                 </div>
-//                 <div className="text-center p-4 bg-gray-500 rounded-lg shadow-md">
-//                   <div className="text-2xl font-bold text-orange-600">50+</div>
-//                   <div className="text-sm text-gray-200">Speaking Events</div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </section>
+//           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+//             {[
+//               {
+//                 title: "Our Mission",
+//                 text: "Deliver scalable, secure & innovative tech solutions that accelerate global business growth.",
+//               },
+//               {
+//                 title: "Our Vision",
+//                 text: "To lead the future of digital transformation with intelligence and innovation.",
+//               },
+//               {
+//                 title: "Core Values",
+//                 text: "Integrity, Excellence, Innovation, Customer First & Collaboration.",
+//               },
+//             ].map((card, i) => (
+//               <div
+//                 key={i}
+//                 className="bg-white/10 backdrop-blur-lg text-gray-100 p-8 rounded-2xl shadow-xl border border-white/20 hover:scale-[1.05] transition"
+//               >
+//                 <h2 className="text-2xl font-semibold text-teal-300 mb-3">
+//                   {card.title}
+//                 </h2>
+//                 <p className="text-gray-200">{card.text}</p>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
 
-//       {/* Team Section */}
-//       <section className="py-20 bg-gradient-to-r from-[#1a2940] to-[#24344d]">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//           
-//           <div className="text-center mb-16">
-//             <h2 className="text-3xl md:text-4xl font-bold text-gray-100 mb-4">
-//               Meet Our Team
-//             </h2>
-//             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-//               The brilliant minds behind ats global tech - experts in their fields, passionate about innovation.
-//             </p>
-//           </div>
+//       {/* ---------------- CEO SECTION ---------------- */}
+//       <section className="py-24 bg-gray-50">
+//         <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+//           {/* LEFT IMAGE */}
+//           <img
+//             src="./ceo.png"
+//             alt="CEO"
+//             className="rounded-2xl shadow-2xl w-full max-w-md object-cover mx-auto"
+//           />
 
-//             {teamMembers.map((member) => (
-//               <div 
-//                   key={member.name}
-//                   className="rounded-lg bg-white/10 backdrop-blur-sm text-center  shadow-lg hover:shadow-xl transition duration-300 p-6"
-//               >
-//                 <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
-//                   <img src={member.imgSrc} alt={member.imgAlt} className="w-full h-full object-cover"/>
-//                 </div>
+//           {/* RIGHT CONTENT */}
+//           <div>
+//             <span className="px-4 py-1 text-sm bg-white rounded-full shadow-sm mb-4 inline-block">
+//               Leadership • Strategy • Innovation
+//             </span>
 
-//                 <h3 className="font-semibold text-xl">{member.name}</h3>
-//                 <p className="text-sm text-orange-600 font-medium mb-4">{member.role}</p>
+//             <blockquote className="text-2xl md:text-3xl italic text-gray-700 mb-6">
+//               “We don’t just create technology — we create growth, opportunity, and success.”
+//             </blockquote>
 
-//                 <p className="text-gray-300 mb-4">
-//                   {member.description}
-//                 </p>
+//             <h3 className="text-4xl font-bold bg-gradient-to-r from-cyan-500 to-teal-600 bg-clip-text text-transparent">
+//               Abhay Singh
+//             </h3>
 
-//                 <div className="flex justify-center space-x-4 mb-4">
-//                   <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:text-orange-800">
-//                     <Linkedin className="w-5 h-5"/>
-//                   </a>
-//                   <a href={member.mail} className="text-orange-600 hover:text-orange-800">
-//                     <Mail className="w-5 h-5 "/>
-//                   </a>
-//                   <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-orange-600 hover:text-orange-800">
-//                     <Github className="w-5 h-5"/>
-//                   </a>
-//                 </div>
+//             <p className="text-gray-900 text-xl font-semibold mb-6">
+//               CEO & Founder — ATS Global Tech
+//             </p>
 
-//                 {/* The Button with the NEW Navigation Functionality */}
-//                 <button 
-//                   onClick={() => navigate(member.navigationPath)} // यहाँ `member.navigationPath` का उपयोग किया गया है
-//                   className="bg-orange-600 text-white px-4 py-2 text-sm rounded-md hover:bg-orange-700 transition duration-150"
-//                 >
-//                   View Portfolio
-//                 </button>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </section>
-//       
+//             <p className="text-gray-700 mb-4">
+//               With 15+ years of global tech experience, Abhay believes in building futuristic digital ecosystems.
+//             </p>
 
-//       {/* Core Values */}
-//       <section className="py-20 max-w-7xl mx-auto px-6 lg:px-8 my-12 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 text-gray-100">
-//         <div className="text-center mb-16">
-//           <h2 className="text-3xl md:text-4xl font-bold text-orange-400 mb-4">
-//             Our Core Values
-//           </h2>
-//           <p className="text-lg text-gray-200 max-w-2xl mx-auto">
-//             These values guide every decision we make and every solution we
-//             deliver.
-//           </p>
-//         </div>
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-//           {[
-//             {
-//               title: "Innovation",
-//               desc: "We explore new technologies and methods to deliver cutting-edge solutions.",
-//             },
-//             {
-//               title: "Quality",
-//               desc: "We deliver high-quality products that exceed expectations.",
-//             },
-//             {
-//               title: "Collaboration",
-//               desc: "We partner with clients for long-term success.",
-//             },
-//             {
-//               title: "Growth",
-//               desc: "We focus on scalable, future-ready solutions.",
-//             },
-//           ].map((value, i) => (
-//             <div
-//               key={i}
-//               className="rounded-xl bg-white/10 p-6 text-center border border-white/10 hover:bg-white/20 transition"
-//             >
-//               <h3 className="text-xl font-semibold text-orange-400 mb-2">
-//                 {value.title}
-//               </h3>
-//               <p className="text-gray-200 text-sm">{value.desc}</p>
-//             </div>
-//           ))}
-//         </div>
-//       </section>
+//             {/* <p className="text-gray-700 mb-4">
+//               He has worked with startups and enterprises across multiple technologies.
+//             </p> */}
+//             <p className="text-gray-700 mb-4">
+//   He has worked with startups, mid-scale companies, and global enterprises,
+//   helping them adopt modern technologies such as Cloud, AI Automation,
+//   Full-Stack Engineering, Data-Driven Architecture, Cybersecurity, and 
+//   Scalable Digital Platforms. His focus is on building systems that are
+//   fast, reliable, future-ready, and capable of supporting large-scale growth.
+// </p>
 
-//       {/* Call to Action */}
-//       <section className="py-20 text-center">
-//         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-orange-400">
-//           Join Our Journey
-//         </h2>
-//         <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-200">
-//           Whether you're looking for a career opportunity or want to partner
-//           with us — we’d love to hear from you.
-//         </p>
-//         <div className="flex flex-col sm:flex-row justify-center gap-4">
-//           <a href="/contact">
-//             <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-md transition">
-//               Get In Touch
-//             </button>
-//           </a>
-//           <a href="/careers">
-//             <button className="bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-md transition border border-white/30">
-//               View Careers
-//             </button>
-//           </a>
-//         </div>
-//       </section>
-//     </div>
-//   );
+
+//             <div className="grid grid-cols-3 gap-4 mt-6">
+//               {[
+//                 { value: "15+", label: "Years Leading" },
+//                 { value: "500+", label: "Projects Done" },
+//                 { value: "60+", label: "Enterprise Clients" },
+//               ].map((stat) => (
+//                 <div
+//                   key={stat.label}
+//                   className="bg-white p-5 rounded-xl text-center shadow-sm hover:-translate-y-1 transition"
+//                 >
+//                   <div className="text-3xl font-bold text-cyan-600">{stat.value}</div>
+//                   <div className="text-sm text-gray-700">{stat.label}</div>
+//                 </div>
+//               ))}
+//             </div>
+
+//             <p className="mt-8 text-gray-600 italic border-l-4 border-cyan-600 pl-4">
+//               “Leadership is not a position — it's an influence that creates change.”
+//             </p>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* ---------------- TEAM SECTION ---------------- */}
+//       <section className="py-20 bg-white">
+//         <div className="max-w-7xl mx-auto px-6 text-center">
+//           <h2 className="text-4xl font-bold text-gray-900">Meet Our Team</h2>
+
+//           <p className="text-lg text-gray-600 mb-14 max-w-2xl mx-auto">
+//             Our team blends creativity, engineering excellence, and strategy to build future-ready solutions.
+//           </p>
+
+//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+//             {teamMembers.map((m, i) => (
+//               <div
+//                 key={i}
+//                 className="bg-white border border-gray-200 p-6 rounded-xl shadow hover:shadow-xl transition"
+//               >
+//                 <img
+//                   src={m.imgSrc}
+//                   className="w-24 h-24 mx-auto rounded-full object-cover mb-4"
+//                   alt={m.imgAlt}
+//                 />
+
+//                 <h3 className="font-semibold text-xl">{m.name}</h3>
+//                 <p className="text-teal-600 text-sm mb-3">{m.role}</p>
+
+//                 <p className="text-gray-600 text-sm mb-4">{m.description}</p>
+
+//                 <div className="flex flex-wrap justify-center gap-2 mb-4">
+//                   {m.skills.map((skill, idx) => (
+//                     <span
+//                       key={idx}
+//                       className="px-3 py-1 text-xs bg-teal-100 text-teal-700 rounded-full border border-teal-300"
+//                     >
+//                       {skill}
+//                     </span>
+//                   ))}
+//                 </div>
+
+//                 <button
+//                   onClick={() => navigate(m.navigationPath)}
+//                   className="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 transition"
+//                 >
+//                   View Portfolio
+//                 </button>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* ---------------- CTA ---------------- */}
+//       <section className="py-20 text-center bg-gray-50">
+//         <h2 className="text-3xl font-bold">Join Our Journey</h2>
+//         <p className="text-lg text-gray-700 max-w-xl mx-auto mt-4">
+//           Whether you want to collaborate or build your dream career —
+//           we’d love to hear from you.
+//         </p>
+
+//         <div className="flex justify-center gap-4 mt-8">
+//           <a href="/contact">
+//             <button className="bg-teal-600 text-white px-6 py-3 rounded-md hover:bg-orange-700 transition">
+//               Get In Touch
+//             </button>
+//           </a>
+//           <a href="/careers">
+//             <button className="border border-teal-300 text-teal-600 px-6 py-3 rounded-md hover:bg-orange-100 transition">
+//               View Careers
+//             </button>
+//           </a>
+//         </div>
+//       </section>
+//     </div>
+//   );
 // };
 
 // export default About;
 
 
+// import React, { FC } from "react"; 
 
+// // --- MOCKING: Updated for TypeScript (.tsx) ---
+// // Define the type for the function that 'useNavigate' returns
+// type NavigateFunction = (path: string) => void;
 
+// // Mocking useNavigate with proper TypeScript typing
+// const useNavigate = (): () => NavigateFunction => {
+//   // Returns a function that itself returns the navigation handler
+//   return () => {
+//     // The actual mocked navigation function
+//     const mockNavigate: NavigateFunction = (path: string) => {
+//       console.log(`Navigating to: ${path} (mocked in TS)`);
+//       // Removed the alert() line as per Canvas guidelines.
+//     };
+//     return mockNavigate;
+//   };
+// };
 
+// // --- COMPONENT ---
+// const About: FC = () => {
+//   const navigate = useNavigate();
+//   // Get the actual mocked navigation function
+//   const navigateTo = navigate(); 
 
+//   const teamMembers = [
+//     {
+//       name: "Pramod Saini",
+//       role: "Senior Frontend Developer",
+//       description:
+//         "06 months in tech leadership, former SudoTechlabs engineer with expertise in scalable systems.",
+//       imgSrc: "./Pramod.png", 
+//       imgAlt: "Pramod Saini",
+//       navigationPath: "/team-members",
+//       skills: ["React", "Tailwind", "JavaScript", "UI/UX"],
+//     },
+//     {
+//       name: "Aakash Kumawat",
+//       role: "Senior Backend Developer",
+//       description:
+//         "Enterprise backend engineer with expertise in distributed systems & APIs.",
+//       imgSrc: "./Aakash.jpeg", 
+//       imgAlt: "Aakash Kumawat",
+//       navigationPath: "/team-members3",
+//       skills: ["Python", "Django", "MySql", "System Design"],
+//     },
+//     {
+//       name: "Rahul Kumawat",
+//       role: "MERN Stack Developer",
+//       description:
+//         "MERN developer skilled in building scalable full-stack applications.",
+//       imgSrc: "./Rahul5.jpg", 
+//       imgAlt: "Rahul Kumar",
+//       navigationPath: "/team-members2",
+//       skills: ["React", "Node.js", "MongoDB", "Express.js"],
+//     },
+//     {
+//       name: "Kamlesh Kumar Sharma",
+//       role: "Full Stack Developer",
+//       description:
+//         "Full Stack developer skilled in building scalable digital solutions.",
+//       imgSrc: "./kamal1.jpg", 
+//       imgAlt: "Kamlesh Sharma",
+//       navigationPath: "/team-members4",
+//       skills: ["JS","React", "c#", ".NET", "MySQL"],
+//     },
+//   ];
 
-import React from "react";
-import { Linkedin, Github, Mail } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+//   return (
+//     // Set font family explicitly for the entire component
+//     <div className="bg-white text-gray-900" style={{ fontFamily: "Times New Roman, serif" }}>
+      
+//       {/* ---------------- HERO / MISSION SECTION ---------------- */}
+//       <section
+//         className="relative py-20 sm:py-28 text-center flex items-center justify-center min-h-[500px]"
+//       >
+//         {/* Background Image & Overlay */}
+//         <div
+//           className="absolute inset-0 bg-cover bg-center"
+//           style={{
+//             backgroundImage:
+//               "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80')",
+//           }}
+//         ></div>
+//         <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
 
-const About: React.FC = () => {
-  const navigate = useNavigate();
+//         <div className="relative max-w-7xl mx-auto px-6">
+//           <h1
+//             className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-teal-500 text-transparent bg-clip-text"
+//           >
+//             About <span className="text-white">ATS GLOBAL TECH</span>
+//           </h1>
 
-  const teamMembers = [
-       {
-      name: "Khushbu Singh",
-      role: "HR Manager",
-      description: "Passionate HR professional with expertise in talent acquisition, employee engagement, and organizational development.",
-      imgSrc: "./team-devops.jpg",
-      imgAlt: "HR Manager",
-      linkedin: "https://www.linkedin.com/in/HR Manager-22411a308",
-      mail: "mailto:HR Manager@atsglobaltech.com",
-      github: "https://share.google/tKqAjkPqBtKgtdqOJ",
-      navigationPath: "/team-members4",
-    },
-    {
-      name: "Pramod Saini",
-      role: "Senior Frontend Developer",
-      description: "6 months in frontend development with strong UI experience.",
-      imgSrc: "./Pramod.png",
-      imgAlt: "Pramod Saini",
-      linkedin: "https://www.linkedin.com/in/pramod-saini-0577a5229/",
-      mail: "mailto:pramod@atsglobaltech.com",
-      github: "https://github.com/Pramod-saini",
-      navigationPath: "/team-members",
-    },
-    {
-      name: "Aadarsh Sharma",
-      role: "Senior Frontend Developer",
-      description: "Expert in React JS & modern web design.",
-      imgSrc: "./Aadarsh.png",
-      imgAlt: "Aadarsh Sharma",
-      linkedin: "https://www.linkedin.com/in/aadarsh-sharma-4a5aba336/",
-      mail: "mailto:aadarsh@atsglobaltech.com",
-      github: "https://github.com/Aadarsh1511",
-      navigationPath: "/team-members2",
-    },
-    {
-      name: "Aakash Kumawat",
-      role: "Senior Backend Developer",
-      description: "Backend developer with enterprise-level experience.",
-      imgSrc: "./Aakash.jpeg",
-      imgAlt: "Aakash Kumawat",
-      linkedin: "https://linkedin.com/in/akshmat243",
-      mail: "mailto:aakash@atsglobaltech.com",
-      github: "https://github.com/akshmat243",
-      navigationPath: "/team-members3",
-    },
-   
-  ];
+//           <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-10" 
+//           >
+//             ATS Global Tech empowers businesses through innovation, digital
+//             transformation, and future-ready software engineering.
+//           </p>
 
-  return (
-    <div className="min-h-screen bg-white text-gray-900">
-      {/* Hero Section */}
-      {/* <section className="py-32 lg:py-28 text-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            About <span className="text-orange-600">ATS GLOBAL TECH</span>
-          </h1>
-          <p className="text-xl mb-8 max-w-3xl mx-auto text-gray-700">
-            We are a team of passionate technologists, designers, and innovators
-            committed to transforming businesses through cutting-edge technology
-            solutions.
-          </p>
-        </div>
-      </section> */}
-      <section className="bg-gray-400 py-32 lg:py-28 text-center min-h-[500px] flex items-center">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-      About <span className="text-orange-600">ATS GLOBAL TECH</span>
-    </h1>
-    <p className="text-xl mb-8 max-w-3xl mx-auto text-gray-100">
-      We are a team of passionate technologists, designers, and innovators
-      committed to transforming businesses through cutting-edge technology
-      solutions. Our goal is to help organizations achieve digital excellence
-      and long-term success.
-    </p>
+//           {/* Mission/Vision Cards - Responsive Grid */}
+//           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+//             {[
+//               {
+//                 title: "Our Mission",
+//                 text: "Deliver scalable, secure & innovative tech solutions that accelerate global business growth.",
+//               },
+//               {
+//                 title: "Our Vision",
+//                 text: "To lead the future of digital transformation with intelligence and innovation.",
+//               },
+//               {
+//                 title: "Core Values",
+//                 text: "Integrity, Excellence, Innovation, Customer First & Collaboration.",
+//               },
+//             ].map((card, i) => (
+//               <div
+//                 key={i}
+//                 className="bg-white/10 backdrop-blur-md text-gray-100 p-8 rounded-2xl shadow-xl border border-white/20 hover:scale-[1.05] transition duration-300 transform hover:shadow-2xl"
+//               >
+//                 <h2 className="text-2xl font-semibold text-teal-300 mb-3">
+//                   {card.title}
+//                 </h2>
+//                 <p className="text-gray-200">{card.text}</p>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
 
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12 text-left">
-      {/* Mission */}
-      <div className="bg-black p-8 rounded-2xl shadow-lg border border-gray-700 hover:scale-105 transition-transform duration-300">
-        <h2 className="text-2xl font-semibold mb-4 text-orange-600">Our Mission</h2>
-        <p className="text-gray-200">
-          To deliver innovative, reliable, and scalable technology solutions
-          that empower businesses to grow, adapt, and lead in a rapidly
-          evolving digital world.
-        </p>
-      </div>
+//       {/* ---------------- CEO SECTION ---------------- */}
+//       <section className="py-20 lg:py-24 bg-gray-50">
+//         <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-      {/* Vision */}
-      <div className="bg-black p-8 rounded-2xl shadow-lg border border-gray-700 hover:scale-105 transition-transform duration-300">
-        <h2 className="text-2xl font-semibold mb-4 text-orange-600">Our Vision</h2>
-        <p className="text-gray-200">
-          To be a global leader in digital transformation by integrating
-          creativity, strategy, and advanced technologies to build a smarter
-          and more connected future.
-        </p>
-      </div>
+//           {/* LEFT IMAGE */}
+//           <div>
+//             <img
+//               src="./ceo.png" 
+//               alt="CEO"
+//               // Fallback image source if the local path fails
+//               onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { 
+//                 const target = e.target as HTMLImageElement; 
+//                 target.onerror = null; 
+//                 target.src = 'https://placehold.co/400x500/0F766E/ffffff?text=CEO+Image' 
+//               }}
+//               className="rounded-2xl shadow-2xl w-full max-w-sm sm:max-w-md object-cover mx-auto aspect-[4/5] transform hover:scale-[1.02] transition duration-500"
+//             />
+//           </div>
 
-      {/* Core Values */}
-      <div className="bg-black p-8 rounded-2xl shadow-lg border border-gray-700 hover:scale-105 transition-transform duration-300">
-        <h2 className="text-2xl font-semibold mb-4 text-orange-600">Core Values</h2>
-        <ul className="list-disc list-inside text-gray-200 space-y-2">
-          <li>Innovation & Excellence</li>
-          <li>Integrity & Transparency</li>
-          <li>Customer-Centric Approach</li>
-          <li>Collaboration & Teamwork</li>
-          <li>Continuous Learning</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+//           {/* RIGHT CONTENT */}
+//           <div>
+//             <span className="px-4 py-1 text-sm bg-white rounded-full shadow-md mb-4 inline-block font-sans text-gray-700">
+//               Leadership • Strategy • Innovation
+//             </span>
 
+//             <blockquote className="text-2xl md:text-3xl italic text-gray-700 mb-6 border-l-4 border-teal-500 pl-4">
+//               “We don’t just create technology — we create growth, opportunity, and success.”
+//             </blockquote>
 
-      {/* Vision & Mission */}
-      <section className="py-20 bg-orange-50 rounded-3xl max-w-7xl mx-auto my-12 text-gray-800 shadow-lg">
-        <div className="grid grid-cols-1 gap-12 px-6 lg:px-8">
-          <div className="rounded-xl bg-white p-8 border border-orange-100 shadow-md">
-            <h3 className="text-2xl font-semibold text-orange-600 mb-4 text-center">
-              Our Vision
-            </h3>
-            <p className="text-lg text-gray-700 text-center">
-              To be the world's most trusted technology partner, recognized for
-              our innovation, integrity, and impact. We envision a future where
-              every business can leverage technology to create meaningful value.
-            </p>
-          </div>
+//             <h3 className="text-4xl font-bold bg-gradient-to-r from-cyan-500 to-teal-600 bg-clip-text text-transparent">
+//               Abhay Singh
+//             </h3>
 
-          <div className="rounded-xl bg-white p-8 border border-orange-100 shadow-md">
-            <h3 className="text-2xl font-semibold text-orange-600 mb-4 text-center">
-              Our Mission
-            </h3>
-            <p className="text-lg text-gray-700 text-center">
-              To empower businesses worldwide with innovative technology
-              solutions that drive growth, efficiency, and transformation. We
-              make advanced tech accessible to organizations of all sizes.
-            </p>
-          </div>
-        </div>
-      </section>
+//             <p className="text-gray-900 text-xl font-semibold mb-6">
+//               CEO & Founder — ATS Global Tech
+//             </p>
 
+//             <p className="text-gray-700 mb-4">
+//               With 15+ years of global tech experience, Abhay believes in building futuristic digital ecosystems.
+//             </p>
 
-{/* CEO Section */}
-<section className="py-20 max-w-7xl mx-auto px-6 lg:px-8 my-12 bg-white rounded-3xl border border-gray-200 text-gray-900 shadow-lg">
-  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-    <div className="relative">
-      <img
-        src="./ceo.png"
-        alt="Abhay Singh - CEO"
-        className="w-full max-w-md mx-auto rounded-2xl shadow-xl"
-      />
-    </div>
+//             <p className="text-gray-700 mb-4">
+//               He has worked with startups, mid-scale companies, and global enterprises,
+//               helping them adopt modern technologies such as Cloud, AI Automation,
+//               Full-Stack Engineering, Data-Driven Architecture, Cybersecurity, and 
+//               Scalable Digital Platforms. His focus is on building systems that are
+//               fast, reliable, future-ready, and capable of supporting large-scale growth.
+//             </p>
 
-    <div>
-      <div className="mb-8">
-        <blockquote className="text-2xl md:text-3xl font-light text-gray-700 italic leading-relaxed mb-6">
-          "Technology should empower businesses to achieve their wildest
-          dreams. At ats global tech, we don't just build software – we craft
-          digital experiences that transform industries."
-        </blockquote>
-      </div>
-      <div className="space-y-6">
-        <div>
-          <h3 className="text-3xl font-bold text-gray-900 mb-2">
-            Abhay Singh
-          </h3>
-          <p className="text-xl text-orange-600 font-semibold mb-4">
-            CEO &amp; Founder
-          </p>
-        </div>
-        <div className="prose prose-lg text-gray-700">
-          <p className="mb-4">
-            With over 15 years of experience in the technology industry,
-            Abhay founded ats global tech with a vision to bridge the gap
-            between innovative technology and practical business
-            solutions. As a former senior engineer at{" "}
-            <span className="text-orange-600 text-xl underline">
-              Infosys
-            </span>
-            , he brings deep technical expertise combined with strategic
-            business acumen.
-          </p>
-          <p className="mb-4">
-            Under Abhay's leadership, ats global tech has grown from a
-            two-person startup to a globally recognized technology
-            consultancy, serving Fortune 500 companies and innovative
-            startups alike. His passion for emerging technologies and
-            commitment to excellence has been the driving force behind the
-            company's success.
-          </p>
-          <p>
-            Abhay holds a Master's degree in Computer Science from Stanford
-            University and is a frequent speaker at technology conferences
-            worldwide. When he's not revolutionizing businesses through
-            technology, you can find him mentoring young entrepreneurs or
-            exploring the latest in AI and machine learning.
-          </p>
-        </div>
-        <div className="flex items-center space-x-4 pt-4">
-          <a
-            href="#"
-            className="text-orange-600 hover:text-orange-800 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-linkedin h-6 w-6"
+//             {/* Stats Grid - Responsive across all sizes */}
+//             <div className="grid grid-cols-3 gap-4 mt-6">
+//               {[
+//                 { value: "15+", label: "Years Leading" },
+//                 { value: "500+", label: "Projects Done" },
+//                 { value: "60+", label: "Enterprise Clients" },
+//               ].map((stat, i) => (
+//                 <div
+//                   key={stat.label}
+//                   className="bg-white p-4 sm:p-5 rounded-xl text-center shadow-lg hover:-translate-y-1 transition duration-300 border border-gray-100"
+//                 >
+//                   <div className="text-xl sm:text-3xl font-bold text-cyan-600">{stat.value}</div>
+//                   <div className="text-xs sm:text-sm text-gray-700">{stat.label}</div>
+//                 </div>
+//               ))}
+//             </div>
+
+//             <p className="mt-8 text-gray-600 italic border-l-4 border-cyan-600 pl-4">
+//               “Leadership is not a position — it's an influence that creates change.”
+//             </p>
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* ---------------- TEAM SECTION ---------------- */}
+//       <section className="py-20 bg-white">
+//         <div className="max-w-7xl mx-auto px-6 text-center">
+//           <h2 className="text-4xl font-bold text-gray-900">Meet Our Team</h2>
+
+//           <p className="text-lg text-gray-600 mb-14 max-w-2xl mx-auto mt-4">
+//             Our team blends creativity, engineering excellence, and strategy to build future-ready solutions.
+//           </p>
+
+//           {/* Team Members Grid - Excellent responsiveness (1, 2, or 4 columns) */}
+//           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+//             {teamMembers.map((m, i) => (
+//               <div
+//                 key={i}
+//                 className="bg-white border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 transform hover:scale-[1.02] flex flex-col items-center"
+//               >
+//                 <img
+//                   src={m.imgSrc} 
+//                   // Fallback image source if the local path fails
+//                   onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { 
+//                     const target = e.target as HTMLImageElement; 
+//                     target.onerror = null; 
+//                     target.src = `https://placehold.co/100x100/A7F3D0/0F766E?text=${m.name.charAt(0)}` 
+//                   }}
+//                   className="w-24 h-24 mx-auto rounded-full object-cover mb-4 ring-4 ring-teal-200"
+//                   alt={m.imgAlt}
+//                 />
+
+//                 <h3 className="font-semibold text-xl">{m.name}</h3>
+//                 <p className="text-teal-600 text-sm mb-3">{m.role}</p>
+
+//                 <p className="text-gray-600 text-sm mb-4 flex-grow">{m.description}</p> 
+
+//                 <div className="flex flex-wrap justify-center gap-2 mb-4">
+//                   {m.skills.map((skill, idx) => (
+//                     <span
+//                       key={idx}
+//                       className="px-3 py-1 text-xs bg-teal-100 text-teal-700 rounded-full border border-teal-300 font-sans"
+//                     >
+//                       {skill}
+//                     </span>
+//                   ))}
+//                 </div>
+
+//                 <button
+//                   // Using the TypeScript typed navigation function
+//                   onClick={() => navigateTo(m.navigationPath)}
+//                   className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition duration-300 mt-auto shadow-md hover:shadow-lg"
+//                 >
+//                   View Portfolio
+//                 </button>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+
+//       {/* ---------------- CTA ---------------- */}
+//       <section className="py-20 text-center bg-gray-50">
+//         <h2 className="text-3xl md:text-4xl font-bold">Join Our Journey</h2>
+//         <p className="text-lg text-gray-700 max-w-xl mx-auto mt-4">
+//           Whether you want to collaborate or build your dream career —
+//           we’d love to hear from you.
+//         </p>
+
+//         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8 px-4">
+//           <a href="/contact">
+//             <button className="w-full sm:w-auto bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition shadow-lg">
+//               Get In Touch
+//             </button>
+//           </a>
+//           <a href="/careers">
+//             <button className="w-full sm:w-auto border border-teal-300 text-teal-600 px-6 py-3 rounded-lg hover:bg-teal-50 transition hover:border-teal-400 shadow-md">
+//               View Careers
+//             </button>
+//           </a>
+//         </div>
+//       </section>
+//     </div>
+//   );
+// };
+
+// export default About;
+
+import React, { FC } from "react"; 
+
+// 🚨 IMPORTANT: The previous mock and the use of 'useNavigate' has been 
+// removed, and navigation is now handled via native HTML <a> tags wrapped 
+// around the buttons. This is the most reliable way to ensure links work 
+// across all environments.
+
+// --- COMPONENT ---
+const About: FC = () => {
+    // useNavigate is no longer used, as we use native <a> tags for navigation.
+    
+    const teamMembers = [
+        {
+            name: "Pramod Saini",
+            role: "Senior Frontend Developer",
+            description:
+                "06 months in tech leadership, former SudoTechlabs engineer with expertise in scalable systems.",
+            imgSrc: "./Pramod.png", 
+            imgAlt: "Pramod Saini",
+            navigationPath: "/team-members", // Target Path 1
+            skills: ["React", "Tailwind", "JavaScript", "UI/UX"],
+        },
+        {
+            name: "Aakash Kumawat",
+            role: "Senior Backend Developer",
+            description:
+                "Enterprise backend engineer with expertise in distributed systems & APIs.",
+            imgSrc: "./Aakash.jpeg", 
+            imgAlt: "Aakash Kumawat",
+            navigationPath: "/team-members3", // Target Path 3
+            skills: ["Python", "Django", "MySql", "System Design"],
+        },
+        {
+            name: "Rahul Kumawat",
+            role: "MERN Stack Developer",
+            description:
+                "MERN developer skilled in building scalable full-stack applications.",
+            imgSrc: "./Rahul5.jpg", 
+            imgAlt: "Rahul Kumar",
+            navigationPath: "/team-members2", // Target Path 2
+            skills: ["React", "Node.js", "MongoDB", "Express.js"],
+        },
+        {
+            name: "Kamlesh Kumar Sharma",
+            role: "Full Stack Developer",
+            description:
+                "Full Stack developer skilled in building scalable digital solutions.",
+            imgSrc: "./kamal1.jpg", 
+            imgAlt: "Kamlesh Sharma",
+            navigationPath: "/team-members4", // Target Path 4
+            skills: ["JS","React", "c#", ".NET", "MySQL"],
+        },
+    ];
+
+    return (
+        // Set font family explicitly for the entire component
+        <div className="bg-white text-gray-900 min-h-screen" style={{ fontFamily: "Times New Roman, serif" }}>
+            
+            {/* ---------------- HERO / MISSION SECTION ---------------- */}
+            <section
+                className="relative py-20 sm:py-28 text-center flex items-center justify-center min-h-[500px]"
             >
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-              <rect width="4" height="12" x="2" y="9"></rect>
-              <circle cx="4" cy="4" r="2"></circle>
-            </svg>
-          </a>
-          <a
-            href="mailto:alex@atsglobaltech.com"
-            className="text-orange-600 hover:text-orange-800 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-mail h-6 w-6"
-            >
-              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-            </svg>
-          </a>
-          <a
-            href="#"
-            className="text-orange-600 hover:text-orange-800 transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="lucide lucide-github h-6 w-6"
-            >
-              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-              <path d="M9 18c-4.51 2-5-2-7-2"></path>
-            </svg>
-          </a>
-        </div>
-        <div className="grid grid-cols-3 gap-4 pt-6">
-          <div className="text-center p-4 bg-gray-100 rounded-lg shadow-md">
-            <div className="text-2xl font-bold text-orange-600">15+</div>
-            <div className="text-sm text-gray-700">Years Experience</div>
-          </div>
-          <div className="text-center p-4 bg-gray-100 rounded-lg shadow-md">
-            <div className="text-2xl font-bold text-orange-600">500+</div>
-            <div className="text-sm text-gray-700">Projects Led</div>
-          </div>
-          <div className="text-center p-4 bg-gray-100 rounded-lg shadow-md">
-            <div className="text-2xl font-bold text-orange-600">50+</div>
-            <div className="text-sm text-gray-700">Speaking Events</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+                {/* Background Image & Overlay */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                        backgroundImage:
+                            "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80')",
+                    }}
+                ></div>
+                <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
 
+                <div className="relative max-w-7xl mx-auto px-6">
+                    <h1
+                        className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-teal-500 text-transparent bg-clip-text"
+                    >
+                        About <span className="text-white">ATS GLOBAL TECH</span>
+                    </h1>
 
+                    <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-10" 
+                    >
+                        ATS Global Tech empowers businesses through innovation, digital
+                        transformation, and future-ready software engineering.
+                    </p>
 
-      {/* Team Section */}
-      <section className="py-20 bg-gradient-to-r from-orange-50 via-white to-orange-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Meet Our Team
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              The brilliant minds behind ATS GLOBAL TECH — experts in their
-              fields, passionate about innovation.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member) => (
-              <div
-                key={member.name}
-                className="rounded-lg bg-white text-center border border-gray-200 shadow-md hover:shadow-lg transition p-6"
-              >
-                <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden">
-                  <img
-                    src={member.imgSrc}
-                    alt={member.imgAlt}
-                    className="w-full h-full object-cover"
-                  />
+                    {/* Mission/Vision Cards - Responsive Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+                        {[
+                            {
+                                title: "Our Mission",
+                                text: "Deliver scalable, secure & innovative tech solutions that accelerate global business growth.",
+                            },
+                            {
+                                title: "Our Vision",
+                                text: "To lead the future of digital transformation with intelligence and innovation.",
+                            },
+                            {
+                                title: "Core Values",
+                                text: "Integrate, Excellence, Innovation, Customer First & Collaboration.",
+                            },
+                        ].map((card, i) => (
+                            <div
+                                key={i}
+                                className="bg-white/10 backdrop-blur-md text-gray-100 p-8 rounded-2xl shadow-xl border border-white/20 hover:scale-[1.05] transition duration-300 transform hover:shadow-2xl"
+                            >
+                                <h2 className="text-2xl font-semibold text-teal-300 mb-3">
+                                    {card.title}
+                                </h2>
+                                <p className="text-gray-200">{card.text}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
+            </section>
 
-                <h3 className="font-semibold text-xl">{member.name}</h3>
-                <p className="text-sm text-orange-600 font-medium mb-4">
-                  {member.role}
+            {/* ---------------- CEO SECTION ---------------- */}
+            <section className="py-20 lg:py-24 bg-gray-50">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+                    {/* LEFT IMAGE */}
+                    <div>
+                        <img
+                            src="./ceo.png" 
+                            alt="CEO"
+                            // Fallback image source if the local path fails
+                            onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { 
+                                const target = e.target as HTMLImageElement; 
+                                target.onerror = null; 
+                                target.src = 'https://placehold.co/400x500/0F766E/ffffff?text=CEO+Image' 
+                            }}
+                            className="rounded-2xl shadow-2xl w-full max-w-sm sm:max-w-md object-cover mx-auto aspect-[4/5] transform hover:scale-[1.02] transition duration-500"
+                        />
+                    </div>
+
+                    {/* RIGHT CONTENT */}
+                    <div>
+                        <span className="px-4 py-1 text-sm bg-white rounded-full shadow-md mb-4 inline-block font-sans text-gray-700">
+                            Leadership • Strategy • Innovation
+                        </span>
+
+                        <blockquote className="text-2xl md:text-3xl italic text-gray-700 mb-6 border-l-4 border-teal-500 pl-4">
+                            “We don’t just create technology — we create growth, opportunity, and success.”
+                        </blockquote>
+
+                        <h3 className="text-4xl font-bold bg-gradient-to-r from-cyan-500 to-teal-600 bg-clip-text text-transparent">
+                            Abhay Singh
+                        </h3>
+
+                        <p className="text-gray-900 text-xl font-semibold mb-6">
+                            CEO & Founder — ATS Global Tech
+                        </p>
+
+                        <p className="text-gray-700 mb-4">
+                            With 15+ years of global tech experience, Abhay believes in building futuristic digital ecosystems.
+                        </p>
+
+                        <p className="text-gray-700 mb-4">
+                            He has worked with startups, mid-scale companies, and global enterprises,
+                            helping them adopt modern technologies such as Cloud, AI Automation,
+                            Full-Stack Engineering, Data-Driven Architecture, Cybersecurity, and 
+                            Scalable Digital Platforms. His focus is on building systems that are
+                            fast, reliable, future-ready, and capable of supporting large-scale growth.
+                        </p>
+
+                        {/* Stats Grid - Responsive across all sizes */}
+                        <div className="grid grid-cols-3 gap-4 mt-6">
+                            {[
+                                { value: "15+", label: "Years Leading" },
+                                { value: "500+", label: "Projects Done" },
+                                { value: "60+", label: "Enterprise Clients" },
+                            ].map((stat, i) => (
+                                <div
+                                    key={stat.label}
+                                    className="bg-white p-4 sm:p-5 rounded-xl text-center shadow-lg hover:-translate-y-1 transition duration-300 border border-gray-100"
+                                >
+                                    <div className="text-xl sm:text-3xl font-bold text-cyan-600">{stat.value}</div>
+                                    <div className="text-xs sm:text-sm text-gray-700">{stat.label}</div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <p className="mt-8 text-gray-600 italic border-l-4 border-cyan-600 pl-4">
+                            “Leadership is not a position — it's an influence that creates change.”
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* ---------------- TEAM SECTION ---------------- */}
+            <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-6 text-center">
+                    <h2 className="text-4xl font-bold text-gray-900">Meet Our Team</h2>
+
+                    <p className="text-lg text-gray-600 mb-14 max-w-2xl mx-auto mt-4">
+                        Our team blends creativity, engineering excellence, and strategy to build future-ready solutions.
+                    </p>
+
+                    {/* Team Members Grid - Excellent responsiveness (1, 2, or 4 columns) */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {teamMembers.map((m, i) => (
+                            <div
+                                key={i}
+                                className="bg-white border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-xl transition duration-300 transform hover:scale-[1.02] flex flex-col items-center"
+                            >
+                                <img
+                                    src={m.imgSrc} 
+                                    // Fallback image source if the local path fails
+                                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => { 
+                                        const target = e.target as HTMLImageElement; 
+                                        target.onerror = null; 
+                                        target.src = `https://placehold.co/100x100/A7F3D0/0F766E?text=${m.name.charAt(0)}` 
+                                    }}
+                                    className="w-24 h-24 mx-auto rounded-full object-cover mb-4 ring-4 ring-teal-200"
+                                    alt={m.imgAlt}
+                                />
+
+                                <h3 className="font-semibold text-xl">{m.name}</h3>
+                                <p className="text-teal-600 text-sm mb-3">{m.role}</p>
+
+                                <p className="text-gray-600 text-sm mb-4 flex-grow">{m.description}</p> 
+
+                                <div className="flex flex-wrap justify-center gap-2 mb-4">
+                                    {m.skills.map((skill, idx) => (
+                                        <span
+                                            key={idx}
+                                            className="px-3 py-1 text-xs bg-teal-100 text-teal-700 rounded-full border border-teal-300 font-sans"
+                                        >
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                                
+                                {/* ---------------------------------------------------- */}
+                                {/* 💡 NAVIGATION FIX: Wrap button in <a> tag */}
+                                {/* Using the href property handles navigation reliably. */}
+                                {/* ---------------------------------------------------- */}
+                                <a 
+                                    href={m.navigationPath}
+                                    className="w-full" // To make the link wrap the full width button
+                                >
+                                    <button
+                                        // onClick is removed, native <a> handles navigation
+                                        className="bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700 transition duration-300 mt-auto shadow-md hover:shadow-lg w-full"
+                                    >
+                                        View Portfolio
+                                    </button>
+                                </a>
+                                {/* ---------------------------------------------------- */}
+
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* ---------------- CTA ---------------- */}
+            <section className="py-20 text-center bg-gray-50">
+                <h2 className="text-3xl md:text-4xl font-bold">Join Our Journey</h2>
+                <p className="text-lg text-gray-700 max-w-xl mx-auto mt-4">
+                    Whether you want to collaborate or build your dream career —
+                    we’d love to hear from you.
                 </p>
 
-                <p className="text-gray-600 mb-4">{member.description}</p>
-
-                <div className="flex justify-center space-x-4 mb-4">
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-orange-600 hover:text-orange-800"
-                  >
-                    <Linkedin className="w-5 h-5" />
-                  </a>
-                  <a
-                    href={member.mail}
-                    className="text-orange-600 hover:text-orange-800"
-                  >
-                    <Mail className="w-5 h-5" />
-                  </a>
-                  <a
-                    href={member.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-orange-600 hover:text-orange-800"
-                  >
-                    <Github className="w-5 h-5" />
-                  </a>
+                <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8 px-4">
+                    {/* These links already use <a> tags */}
+                    <a href="/contact">
+                        <button className="w-full sm:w-auto bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition shadow-lg">
+                            Get In Touch
+                        </button>
+                    </a>
+                    <a href="/careers">
+                        <button className="w-full sm:w-auto border border-teal-300 text-teal-600 px-6 py-3 rounded-lg hover:bg-teal-50 transition hover:border-teal-400 shadow-md">
+                            View Careers
+                        </button>
+                    </a>
                 </div>
-
-                <button
-                  onClick={() => navigate(member.navigationPath)}
-                  className="bg-orange-600 text-white px-4 py-2 text-sm rounded-md hover:bg-orange-700 transition"
-                >
-                  View Portfolio
-                </button>
-              </div>
-            ))}
-          </div>
+            </section>
         </div>
-      </section>
-
-      {/* Core Values */}
-      <section className="py-20 max-w-7xl mx-auto px-6 lg:px-8 my-12 bg-orange-50 rounded-3xl border border-orange-100 text-gray-800">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-orange-600 mb-4">
-            Our Core Values
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            These values guide every decision we make and every solution we
-            deliver.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            {
-              title: "Innovation",
-              desc: "We explore new technologies and methods to deliver cutting-edge solutions.",
-            },
-            {
-              title: "Quality",
-              desc: "We deliver high-quality products that exceed expectations.",
-            },
-            {
-              title: "Collaboration",
-              desc: "We partner with clients for long-term success.",
-            },
-            {
-              title: "Growth",
-              desc: "We focus on scalable, future-ready solutions.",
-            },
-          ].map((value, i) => (
-            <div
-              key={i}
-              className="rounded-xl bg-white p-6 text-center border border-orange-100 shadow-sm hover:shadow-md transition"
-            >
-              <h3 className="text-xl font-semibold text-orange-600 mb-2">
-                {value.title}
-              </h3>
-              <p className="text-gray-700 text-sm">{value.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-20 text-center bg-gradient-to-r from-orange-100 via-white to-orange-50">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-orange-600">
-          Join Our Journey
-        </h2>
-        <p className="text-lg mb-8 max-w-2xl mx-auto text-gray-700">
-          Whether you're looking for a career opportunity or want to partner
-          with us — we’d love to hear from you.
-        </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="/contact">
-            <button className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-md transition">
-              Get In Touch
-            </button>
-          </a>
-          <a href="/careers">
-            <button className="bg-white border border-orange-200 hover:bg-orange-50 text-orange-600 font-bold py-3 px-6 rounded-md transition">
-              View Careers
-            </button>
-          </a>
-        </div>
-      </section>
-    </div>
-  );
+    );
 };
 
 export default About;

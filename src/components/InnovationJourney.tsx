@@ -1,58 +1,155 @@
 
 
-
-// import React, { useState } from "react";
-// import { Play } from "lucide-react";
+// import React from "react";
+// import {
+//   Facebook,
+//   Instagram,
+//   Linkedin,
+//   Youtube,
+//   Mail,
+//   Phone,
+//   MapPin,
+// } from "lucide-react";
 
 // const InnovationJourney: React.FC = () => {
-//   const [play, setPlay] = useState(false);
-
 //   return (
-//     <section className="py-24 bg-gradient-to-r from-[#1c2b4d] to-[#303e4f]">
-//       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-//         <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-//           Experience Our Innovation Journey
-//         </h2>
-//         <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
-//           Take a behind-the-scenes look at our development process, company
-//           culture, and the passionate team that brings cutting-edge solutions to
-//           life.
-//         </p>
+//     <section
+//       className="py-20 bg-white"
+//       style={{ fontFamily: "Times New Roman, serif" }}
+//     >
+//       <div className="max-w-7xl mx-auto px-6">
 
-//         <div className="relative rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 max-w-4xl mx-auto">
-//           {!play ? (
-//             <div className="relative">
-//               <img
-//                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&h=500&fit=crop"
-//                 alt="Company Video"
-//                 className="w-full h-96 object-cover"
-//               />
-//               <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-//                 <div className="text-center">
-//                   <button
-//                     onClick={() => setPlay(true)}
-//                     className="inline-flex items-center justify-center gap-3 h-12 bg-white/20 backdrop-blur-sm border-2 border-white/30 text-white hover:bg-white/30 px-12 rounded-full text-lg font-medium transition-all duration-300"
-//                   >
-//                     <Play className="h-6 w-6" />
-//                     Watch Our Story
-//                   </button>
-//                   <p className="text-white/80 mt-4 text-sm">
-//                     3 minutes – Behind the scenes at ATS GLOBAL TECH
-//                   </p>
-//                 </div>
-//               </div>
-//             </div>
-//           ) : (
-//             <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
+//         {/* HEADING */}
+//         <div className="text-center mb-16" data-aos="fade-up">
+//           <h2 className="text-5xl font-bold text-gray-900">
+//             Connect With ATS Global Tech
+//           </h2>
+//           <p className="text-lg text-gray-600 mt-3 max-w-2xl mx-auto">
+//             Let’s collaborate, innovate, and grow together. Reach out to us through any platform below.
+//           </p>
+//         </div>
+
+//         {/* GRID */}
+//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
+
+//           {/* LEFT — MAP */}
+//           <div
+//             className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 hover:shadow-2xl transition-all duration-500"
+//             data-aos="zoom-in"
+//           >
+//             <h3 className="text-3xl font-bold mb-4 text-gray-900">Our Office Location</h3>
+//             <p className="text-gray-600 mb-6">Visit our workspace anytime during business hours.</p>
+
+//             <div className="relative h-[420px] rounded-xl overflow-hidden shadow-lg">
 //               <iframe
-//                 className="absolute top-0 left-0 w-full h-full rounded-2xl"
-//                 src="https://www.youtube.com/embed/YykjpeuMNEk?autoplay=1&rel=0"
-//                 title="ATS GLOBAL TECH Video"
-//                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-//                 allowFullScreen
+//                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3558.1606834398303!2d75.7529906!3d26.8983951!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5dee53548b5%3A0x66d9679054b4bcbd!2sATS%20GLOBAL%20TECH!5e0!3m2!1sen!2sin!4v1761739403746!5m2!1sen!2sin"
+//                 width="100%"
+//                 height="100%"
+//                 loading="lazy"
+//                 className="border-0"
 //               ></iframe>
 //             </div>
-//           )}
+//           </div>
+
+//           {/* RIGHT — SOCIAL HUB */}
+//           <div data-aos="fade-left">
+//             <h3 className="text-3xl font-bold mb-6 text-gray-900">Social Media Hub</h3>
+//             <p className="text-gray-600 text-lg mb-10">
+//               Stay updated with the latest news, insights & behind-the-scenes moments.
+//             </p>
+
+//             {/* CONTACT INFO */}
+//             <div className="space-y-6 mb-12">
+//               <div className="flex items-center gap-4">
+//                 <MapPin className="h-7 w-7 text-teal-600" />
+//                 <p className="text-gray-800 text-lg">
+//                   codercom building, A4, Ajmer Rd, Purani Chungi, Vidhyut Nagar, Jaipur
+//                 </p>
+//               </div>
+
+//               <div className="flex items-center gap-4">
+//                 <Phone className="h-7 w-7 text-teal-600" />
+//                 <p className="text-gray-800 font-semibold text-lg">+91 9929825003</p>
+//               </div>
+
+//               <div className="flex items-center gap-4">
+//                 <Mail className="h-7 w-7 text-teal-600" />
+//                 <p className="text-gray-800 font-semibold text-lg">
+//                   info@atsglobaltech.in
+//                 </p>
+//               </div>
+//             </div>
+
+//             {/* FOLLOW US */}
+//             <h4 className="text-2xl font-semibold mb-6 text-gray-900">Follow Us</h4>
+
+//             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+
+//               {[
+//                 {
+//                   icon: <Facebook />,
+//                   name: "Facebook",
+//                   url: "https://www.facebook.com/profile.php?id=61574788298611",
+//                 },
+//                 {
+//                   icon: <Instagram />,
+//                   name: "Instagram",
+//                   url: "https://www.instagram.com/sudo.techlabs",
+//                 },
+//                 {
+//                   icon: <Linkedin />,
+//                   name: "LinkedIn",
+//                   url: "https://www.linkedin.com/in/sudo-techlabs-8b6708375",
+//                 },
+//                 {
+//                   icon: <Youtube />,
+//                   name: "YouTube",
+//                   url: "https://www.youtube.com",
+//                 },
+//               ].map((item, index) => (
+//                 <a
+//                   key={index}
+//                   href={item.url}
+//                   target="_blank"
+//                   rel="noopener noreferrer"
+//                   data-aos="zoom-in"
+//                   data-aos-delay={index * 150}
+//                   className="
+//                     group p-6 rounded-2xl border border-gray-200 shadow-lg
+//                     bg-white relative overflow-hidden cursor-pointer
+//                     hover:-translate-y-2 hover:shadow-teal-500/40
+//                     transition-all duration-500 block
+//                   "
+//                 >
+//                   {/* Glow Layer */}
+//                   <div
+//                     className="absolute inset-0 bg-gradient-to-br 
+//                     from-cyan-500/20 to-teal-600/20 
+//                     opacity-0 group-hover:opacity-100 backdrop-blur-md 
+//                     transition-all duration-500"
+//                   ></div>
+
+//                   {/* Icon */}
+//                   <div className="flex justify-center mb-3 relative z-10">
+//                     <div
+//                       className="p-4 rounded-full text-white shadow-xl
+//                       bg-gradient-to-r from-cyan-500 to-teal-600 
+//                       group-hover:scale-110 transition-all duration-500"
+//                     >
+//                       {item.icon}
+//                     </div>
+//                   </div>
+
+//                   {/* Label */}
+//                   <p className="text-center text-gray-900 font-semibold relative z-10">
+//                     {item.name}
+//                   </p>
+//                 </a>
+//               ))}
+
+//             </div>
+//           </div>
+
 //         </div>
 //       </div>
 //     </section>
@@ -62,90 +159,173 @@
 // export default InnovationJourney;
 
 
-
-
-
-
-
-
-import React, { useState } from "react";
-import { Play } from "lucide-react";
+import React from "react";
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
 
 const InnovationJourney: React.FC = () => {
-  const [play, setPlay] = useState(false);
-
   return (
-    // <section className="py-24 bg-white">
-    //   <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    //     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-    //       Experience Our Innovation Journey
-    //     </h2>
-    //     <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto">
-    //       Take a behind-the-scenes look at our development process, company
-    //       culture, and the passionate team that brings cutting-edge solutions to
-    //       life.
-    //     </p>
+    // Responsive vertical padding
+    <section
+      className="py-12 sm:py-16 lg:py-20 bg-white"
+      style={{ fontFamily: "Times New Roman, serif" }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    //     <div className="relative rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-300 max-w-4xl mx-auto">
-    //       {!play ? (
-    //         <div className="relative">
-    //           <img
-    //             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&h=500&fit=crop"
-    //             alt="Company Video"
-    //             className="w-full h-96 object-cover"
-    //           />
-    //           <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-    //             <div className="text-center">
-    //               <button
-    //                 onClick={() => setPlay(true)}
-    //                 className="inline-flex items-center justify-center gap-3 h-12 bg-orange-600 hover:bg-orange-700 text-white px-12 rounded-full text-lg font-medium transition-all duration-300"
-    //               >
-    //                 <Play className="h-6 w-6" />
-    //                 Watch Our Story
-    //               </button>
-    //               <p className="text-gray-100 mt-4 text-sm">
-    //                 3 minutes – Behind the scenes at ATS GLOBAL TECH
-    //               </p>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       ) : (
-    //         <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
-    //           <iframe
-    //             className="absolute top-0 left-0 w-full h-full rounded-2xl"
-    //             src="https://www.youtube.com/embed/YykjpeuMNEk?autoplay=1&rel=0"
-    //             title="ATS GLOBAL TECH Video"
-    //             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    //             allowFullScreen
-    //           ></iframe>
-    //         </div>
-    //       )}
-    //     </div>
-    //   </div>
-    // </section>
-      <div className="bg-white border border-orange-200 rounded-lg shadow-lg mt-12">
-              <div className="p-8">
-                <h3 className="text-2xl font-semibold text-orange-700 mb-2">
-                  Find Us
-                </h3>
-                <p className="text-sm text-gray-600 mb-6">
-                  Visit our office or find us on the map below.
-                </p>
+        {/* HEADING - Responsive Text Size */}
+        <div className="text-center mb-10 sm:mb-14 lg:mb-16" data-aos="fade-up">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
+            Connect With ATS Global Tech
+          </h2>
+          <p className="text-base sm:text-lg text-gray-600 mt-3 max-w-2xl mx-auto">
+            Let’s collaborate, innovate, and grow together. Reach out to us through any platform below.
+          </p>
+        </div>
 
-                <div className="relative h-96 rounded-lg overflow-hidden">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3558.1606834398303!2d75.7529906!3d26.8983951!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5dee53548b5%3A0x66d9679054b4bcbd!2sATS%20GLOBAL%20TECH!5e0!3m2!1sen!2sin!4v1761739403746!5m2!1sen!2sin"
-                    width="100%"
-                    height="100%"
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="ATS GLOBAL TECH Office Location"
-                    style={{ border: 0 }}
-                  ></iframe>
-                </div>
-              </div>
+        {/* GRID - Stacks on mobile, 2 columns on large screens */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
+
+          {/* LEFT — MAP CONTAINER */}
+          <div
+            className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6 hover:shadow-2xl transition-all duration-500"
+            data-aos="zoom-in"
+          >
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-gray-900">Our Office Location</h3>
+            <p className="text-gray-600 mb-6">Visit our workspace anytime during business hours.</p>
+
+            {/* MAP EMBED - Height adjusted for mobile (h-64) */}
+            <div className="relative h-64 sm:h-96 lg:h-[420px] rounded-xl overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3558.1606834398303!2d75.7529906!3d26.8983951!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db5dee53548b5%3A0x66d9679054b4bcbd!2sATS%20GLOBAL%20TECH!5e0!3m2!1sen!2sin!4v1761739403746!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                loading="lazy"
+                className="border-0"
+                title="Office Location Map"
+              ></iframe>
             </div>
+          </div>
+
+          {/* RIGHT — SOCIAL HUB */}
+          <div data-aos="fade-left" className="pt-0 lg:pt-6"> 
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-900">Social Media Hub</h3>
+            <p className="text-gray-600 text-base sm:text-lg mb-10">
+              Stay updated with the latest news, insights & behind-the-scenes moments.
+            </p>
+
+            {/* CONTACT INFO */}
+            <div className="space-y-6 mb-12">
+              {[
+                {
+                  icon: <MapPin className="h-7 w-7 text-teal-600" />,
+                  info: "codercom building, A4, Ajmer Rd, Purani Chungi, Vidhyut Nagar, Jaipur",
+                  link: "#"
+                },
+                {
+                  icon: <Phone className="h-7 w-7 text-teal-600" />,
+                  info: "+91 9929825003",
+                  link: "tel:+919929825003",
+                  isStrong: true
+                },
+                {
+                  icon: <Mail className="h-7 w-7 text-teal-600" />,
+                  info: "info@atsglobaltech.in",
+                  link: "mailto:info@atsglobaltech.in",
+                  isStrong: true
+                },
+              ].map((item, index) => (
+                <a key={`contact-${index}`} href={item.link} className="flex items-start gap-4 group hover:text-teal-700 transition duration-300">
+                  <div className="flex-shrink-0 pt-1">
+                    {item.icon}
+                  </div>
+                  <p className={`text-gray-800 text-lg ${item.isStrong ? 'font-semibold' : ''} group-hover:text-teal-700`}>
+                    {item.info}
+                  </p>
+                </a>
+              ))}
+            </div>
+
+            {/* FOLLOW US */}
+            <h4 className="text-xl sm:text-2xl font-semibold mb-6 text-gray-900">Follow Us</h4>
+
+            {/* SOCIAL ICONS - Responsive Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+
+              {[
+                {
+                  icon: <Facebook className="h-6 w-6" />,
+                  name: "Facebook",
+                  url: "https://www.facebook.com/profile.php?id=61574788298611",
+                },
+                {
+                  icon: <Instagram className="h-6 w-6" />,
+                  name: "Instagram",
+                  url: "https://www.instagram.com/sudo.techlabs",
+                },
+                {
+                  icon: <Linkedin className="h-6 w-6" />,
+                  name: "LinkedIn",
+                  url: "https://www.linkedin.com/in/sudo-techlabs-8b6708375",
+                },
+                {
+                  icon: <Youtube className="h-6 w-6" />,
+                  name: "YouTube",
+                  url: "https://www.youtube.com",
+                },
+              ].map((item, index) => (
+                <a
+                  key={index}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-aos="zoom-in"
+                  data-aos-delay={index * 150}
+                  className="
+                    group p-4 sm:p-6 rounded-2xl border border-gray-200 shadow-lg
+                    bg-white relative overflow-hidden cursor-pointer
+                    hover:-translate-y-1 hover:shadow-teal-500/40
+                    transition-all duration-300 block
+                  "
+                >
+                  {/* Glow Layer */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-br 
+                    from-cyan-500/20 to-teal-600/20 
+                    opacity-0 group-hover:opacity-100 backdrop-blur-md 
+                    transition-all duration-300"
+                  ></div>
+
+                  {/* Icon */}
+                  <div className="flex justify-center mb-3 relative z-10">
+                    <div
+                      className="p-3 sm:p-4 rounded-full text-white shadow-xl
+                      bg-gradient-to-r from-cyan-500 to-teal-600 
+                      group-hover:scale-110 transition-all duration-300"
+                    >
+                      {item.icon}
+                    </div>
+                  </div>
+
+                  {/* Label */}
+                  <p className="text-center text-gray-900 text-sm sm:text-base font-semibold relative z-10">
+                    {item.name}
+                  </p>
+                </a>
+              ))}
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
   );
 };
 

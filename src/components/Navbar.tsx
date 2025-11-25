@@ -1,420 +1,1480 @@
 
-// import React, { useState, useEffect } from "react";
-// import { Menu, X, ChevronDown } from "lucide-react";
-// import { Link, useLocation } from "react-router-dom";
-// import Logo from "../assets/ats-logo.png";
+
+// import { useEffect, useState, useCallback } from "react";
+// import { Link } from "react-router-dom";
+// import { Mail, Phone, Bell, ChevronDown, Menu } from "lucide-react"; 
+// import { io, Socket } from "socket.io-client";
+// import React from 'react';
+
+// // Socket URL for real-time application notifications
+// // Hardcoded URL used as requested. If you start using .env, change this back to import.meta.env.VITE_SOCKET_URL
+// const SOCKET_URL = "http://localhost:5000"; 
+
+// interface AppEntry {
+//     name: string;
+//     job: string; 
+//     email?: string;
+//     phone?: string;
+//     time: string;
+// }
+
+// // Function to load initial application data from Local Storage
+// const getInitialApplications = (): AppEntry[] => {
+//     try {
+//         const saved = localStorage.getItem('ats_applications');
+//         return saved ? JSON.parse(saved) : [];
+//     } catch (e) {
+//         console.error("Error loading data from Local Storage", e);
+//         return [];
+//     }
+// };
+
+// const initialApplications: AppEntry[] = getInitialApplications();
+// const initialCount = 0; 
 
 // export default function Navbar() {
-//   const [mobileOpen, setMobileOpen] = useState(false);
-//   const [servicesOpen, setServicesOpen] = useState(false);
-//   const [workOpen, setWorkOpen] = useState(false);
+//     const [mobileOpen, setMobileOpen] = useState(false);
+//     const [notifOpen, setNotifOpen] = useState(false);
+//     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-//   const location = useLocation();
+//     const [alertMsg, setAlertMsg] = useState<string | null>(null);
+    
+//     const [applications, setApplications] = useState<AppEntry[]>(initialApplications);
+//     const [count, setCount] = useState(initialCount); 
 
-//   useEffect(() => {
-//     window.scrollTo({ top: 0, behavior: "smooth" });
-//   }, [location.pathname]);
+//     const closeAllDropdowns = useCallback(() => setOpenDropdown(null), []);
 
-//   const closeAll = () => {
-//     setMobileOpen(false);
-//     setServicesOpen(false);
-//     setWorkOpen(false);
-//   };
+//     // Effect to save applications to Local Storage whenever they change
+//     useEffect(() => {
+//         localStorage.setItem('ats_applications', JSON.stringify(applications));
+//     }, [applications]);
 
-//   const isActive = (path: string) =>
-//     location.pathname.startsWith(path)
-//       ? "text-orange-400 font-semibold"
-//       : "text-white";
+//     // Effect for setting up Socket.IO connection for real-time applications
+//     useEffect(() => {
+//         // Note: This connection will try to connect to localhost:5000 
+//         // and will only succeed if the Node.js/Express server is running there.
+//         const socket: Socket = io(SOCKET_URL, { transports: ["websocket"] });
 
-//   const servicesLinks = [
-//     { name: "All Services", to: "/services" },
-//     { name: "Solutions", to: "/services/mobile" },
-//     { name: "Industries", to: "/services/industries" },
-//   ];
+//         socket.on("new-application", (data: any) => {
+//             if (!data?.latest) return;
+            
+//             setCount(prev => prev + 1); 
+            
+//             const a = data.latest;
+//             const entry: AppEntry = {
+//                 name: a.name,
+//                 job: a.jobTitle, 
+//                 email: a.email,
+//                 phone: a.phone,
+//                 time: new Date(a.time).toLocaleString(), 
+//             };
+            
+//             setApplications((prev) => [entry, ...prev]);
+//             setAlertMsg(`New Application: ${entry.name} applied for ${entry.job}`);
+//             setTimeout(() => setAlertMsg(null), 5000);
+            
+//         });
 
-//   const workLinks = [
-//     { name: "Projects", to: "/work/projects" },
-//     { name: "Portfolio", to: "/work/portfolio" },
-//     { name: "Case Studies", to: "/work/case-studies" },
-//   ];
+//         return () => {
+//             socket.disconnect();
+//         };
+        
+//     }, []); 
 
-//   return (
-//     <header className="fixed top-0 w-full z-50 bg-gradient-to-r from-[#1a2940] to-[#24344d] shadow-md">
-//       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
 
-//         <div className="flex items-center justify-between h-20">
+//     // Effect to close notification dropdown when clicking outside
+//     useEffect(() => {
+//         const closeNotifOnOutsideClick = () => setNotifOpen(false);
+        
+//         if (notifOpen) {
+//             document.addEventListener('click', closeNotifOnOutsideClick);
+//         }
+        
+//         return () => {
+//             document.removeEventListener('click', closeNotifOnOutsideClick);
+//         };
+//     }, [notifOpen]);
 
-//           {/* ✅ LOGO + ATS Text */}
-//           <Link to="/" onClick={closeAll} className="flex items-center gap-3">
-//             <img src={Logo} className="h-14 w-14 object-contain" />
 
-//             {/* ✅ Title visible except on small-laptop (1024-1279px) */}
-//             <span className="text-xl font-bold text-white hidden xl:block">
-//               ATS GLOBAL TECH
-//             </span>
-//           </Link>
+//     return (
+//         <>
+//             {/* ⬆️ TOP ALERT */}
+//             {alertMsg && (
+//                 <div className="fixed top-0 left-0 right-0 bg-green-600 text-white py-2 text-center text-sm z-[9999]">
+//                     {alertMsg}
+//                 </div>
+//             )}
 
-//           {/* ✅ Desktop Menu (>=1024px) */}
-//           <div className="hidden lg:flex items-center gap-1 whitespace-nowrap">
-//             <NavItem to="/" isActive={isActive}>Home</NavItem>
-//             <NavItem to="/about" isActive={isActive}>About</NavItem>
+//             {/* 🚢 MAIN NAVIGATION CONTAINER - Both Bars Wrapped */}
+//             <div
+//                 className={`fixed left-0 right-0 z-50 transition-all duration-300 shadow-md ${
+//                     alertMsg ? "top-8" : "top-0" 
+//                 }`}
+//             >
+//                 {/* 📞 BLACK CONTACT BAR (Responsive Contact Info) */}
+//                 <div
+//                     className={`bg-gray-800 text-white w-full border-b border-gray-700`}
+//                 >
+//                     <div className="w-full px-4 sm:px-8 py-0.5"> 
+                        
+//                         <div className="flex justify-between items-center text-xs">
+                            
+//                             {/* LEFT SIDE CONTENT - Email (Responsive) */}
+//                             <div className="flex items-center gap-3">
+//                                 {/* Email Text: Mobile पर hidden, Tablet (sm:) से दिखना शुरू */}
+//                                 <div className="hidden sm:flex items-center gap-4"> 
+//                                     <div className="flex items-center gap-2"> 
+//                                         <Mail className="w-3.5 h-3.5 flex-shrink-0" />
+//                                         <a
+//                                             href="mailto:info@atsglobaltech.in"
+//                                             className="hover:text-orange-300 transition" 
+//                                         >
+//                                             info@atsglobaltech.in
+//                                         </a>
+//                                     </div>
+//                                 </div>
+//                             </div>
+                            
+//                             {/* ➡️ RIGHT SIDE CONTENT (Contact icons & Notification) */}
+//                             <div className="flex items-center space-x-2 sm:space-x-3 w-full lg:w-auto justify-end flex-shrink-0"> 
+                                
+//                                 {/* ✅ GMAIL Icon (MOBILE ONLY - sm:hidden) */}
+//                                 <a
+//                                     href="mailto:info@atsglobaltech.in"
+//                                     className="hover:text-orange-300 transition flex items-center sm:hidden" 
+//                                 >
+//                                     <Mail className="w-4 h-4 flex-shrink-0" />
+//                                 </a>
+                                
+//                                 {/* WhatsApp Icon (Desktop Only) */}
+//                                 <a
+//                                     href="https://wa.me/919929825003"
+//                                     target="_blank"
+//                                     rel="noopener noreferrer"
+//                                     className="hover:text-green-300 transition hidden lg:block" 
+//                                 >
+//                                     <svg
+//                                         xmlns="http://www.w3.org/2000/svg"
+//                                         width="14"
+//                                         height="14"
+//                                         viewBox="0 0 24 24"
+//                                         fill="currentColor"
+//                                     >
+//                                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+//                                     </svg>
+//                                 </a>
 
-//             <Dropdown title="Services" open={servicesOpen} setOpen={setServicesOpen}>
-//               {servicesLinks.map((item) => (
-//                 <DropdownItem key={item.name} to={item.to} closeAll={closeAll}>
-//                   {item.name}
-//                 </DropdownItem>
-//               ))}
-//             </Dropdown>
+//                                 {/* 📞 Phone Number Icon/Text (Ultra Responsive - Fixed Overflow) */}
+//                                 <a
+//                                     href="tel:+919929825003"
+//                                     className="hover:text-orange-300 transition flex items-center gap-1 whitespace-nowrap"
+//                                 >
+//                                     <Phone className="w-3.5 h-3.5 flex-shrink-0" />
+                                    
+//                                     {/* Full Text visible on Desktop (lg) and up */}
+//                                     <span className="hidden lg:block">+91 9929825003</span>
+                                    
+//                                     {/* Compact Text 'Call' visible only on Tablet (sm to lg) to prevent overflow */}
+//                                     <span className="hidden sm:block lg:hidden">Call</span> 
+                                    
+//                                 </a>
 
-//             <NavItem to="/products" isActive={isActive}>Products</NavItem>
+//                                 {/* 🔔 Notification Icon with Dropdown */}
+//                                 <div className="relative pl-3 border-l border-gray-700 flex-shrink-0">
+//                                     <button
+//                                         onClick={(e: React.MouseEvent) => {
+//                                             e.stopPropagation(); 
+                                            
+//                                             setNotifOpen((prev) => {
+//                                                 const newState = !prev;
+//                                                 if (newState) setCount(0); 
+//                                                 return newState;
+//                                             });
+//                                         }}
+//                                         className="p-1 rounded-full hover:bg-gray-700 transition"
+//                                     >
+//                                         <Bell className="w-5 h-5 text-white" />
+//                                     </button>
 
-//             <Dropdown title="Work" open={workOpen} setOpen={setWorkOpen}>
-//               {workLinks.map((item) => (
-//                 <DropdownItem key={item.name} to={item.to} closeAll={closeAll}>
-//                   {item.name}
-//                 </DropdownItem>
-//               ))}
-//             </Dropdown>
+//                                     {count > 0 && (
+//                                         <span className="absolute -top-1 -right-1 bg-red-600 w-4 h-4 rounded-full text-white flex items-center justify-center text-xs font-bold">
+//                                             {count}
+//                                         </span>
+//                                     )}
 
-//             <NavItem to="/testimonials" isActive={isActive}>Testimonials</NavItem>
-//             <NavItem to="/blogs" isActive={isActive}>Blogs</NavItem>
-//             <NavItem to="/careers" isActive={isActive}>Careers</NavItem>
-//             <NavItem to="/contact" isActive={isActive}>Contact</NavItem>
+//                                     {notifOpen && (
+//                                         <div 
+//                                             onClick={(e) => e.stopPropagation()}
+//                                             className="absolute right-0 mt-2 w-72 bg-white text-gray-800 shadow-xl border border-gray-200 rounded-lg py-1 z-[60] max-h-80 overflow-y-auto"
+//                                         >
+//                                             <div className="p-3 font-semibold border-b text-sm sticky top-0 bg-white z-10">
+//                                                 New Applications
+//                                             </div>
 
-//             {/* <Link to="/login" className="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200">
-//               Login
-//             </Link> */}
-//           </div>
+//                                             {applications.length === 0 && (
+//                                                 <div className="p-3 text-center text-gray-500 text-sm">
+//                                                     No applications yet
+//                                                 </div>
+//                                             )}
 
-//           {/* ✅ Mobile Menu Button (<1024px) */}
-//           <button
-//             onClick={() => setMobileOpen(!mobileOpen)}
-//             className="lg:hidden p-2 text-white rounded-md hover:bg-white/10"
-//           >
-//             {mobileOpen ? <X /> : <Menu />}
-//           </button>
+//                                             {applications.map((a, i) => (
+//                                                 <div
+//                                                     key={i}
+//                                                     className="p-3 border-b border-gray-100 hover:bg-orange-50 transition cursor-pointer"
+//                                                 >
+//                                                     <div className="font-bold text-sm">{a.name}</div>
+//                                                     <div className="text-xs text-orange-600">{a.job}</div>
+//                                                     {a.email && <div className="text-xs text-gray-600">📧 {a.email}</div>}
+//                                                     {a.phone && <div className="text-xs text-gray-600">📞 {a.phone}</div>}
+//                                                     <div className="text-xs text-gray-400 mt-1">
+//                                                         {a.time}
+//                                                     </div>
+//                                                 </div>
+//                                             ))}
+//                                         </div>
+//                                     )}
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+
+//                 {/* 🚢 MAIN NAVBAR */}
+//                 <nav
+//                     className={`bg-white w-full border-b border-orange-200`}
+//                 >
+//                     <div className="w-full px-8">
+//                         {/* MAIN ROW */}
+//                         <div className="flex justify-between items-center h-20">
+//                             {/* LEFT → LOGO + BRAND NAME (Fully Responsive) */}
+//                             <Link to="/" className="flex items-center gap-2 sm:gap-4">
+//                                 {/* LOGO IMAGE (Smaller on mobile) */}
+//                                 <img
+//                                     src="/atslogo7.jpg"
+//                                     alt="ATS Logo"
+//                                     className="w-14 h-14 sm:w-20 sm:h-20 object-contain"
+//                                 />
+                                
+//                                 {/* 🎯 RESPONSIVE LOGO TEXT SECTION (Visible and stacked on all sizes) */}
+//                                 <div className="flex flex-col"> 
+//                                     {/* ATS GLOBAL TECH - Smaller on mobile/tablet, larger on desktop */}
+//                                     <span className="text-xl lg:text-2xl font-extrabold text-gray-800 font-serif whitespace-nowrap">
+//                                         ATS GLOBAL TECH
+//                                     </span>
+//                                     {/* TAGLINE - Smallest on mobile/tablet, slightly larger on desktop */}
+//                                     <span className="text-[0.6rem] lg:text-xs text-gray-600 text-right font-medium tracking-wide font-serif whitespace-nowrap">
+//                                         THE FUTURE WITH NEXT GEN-AI
+//                                     </span>
+//                                 </div>
+//                             </Link>
+
+//                             {/* RIGHT → MENU ITEMS (Desktop) */}
+//                             <div className="hidden lg:flex items-center space-x-3">
+//                                 <NavLink to="/" label="Home" active onClick={closeAllDropdowns} />
+//                                 <NavLink to="/about" label="About" onClick={closeAllDropdowns} />
+
+//                                 {/* SERVICES DROPDOWN - CORRECTED TO OPEN DOWNWARD */}
+//                                 <DropdownMenu
+//                                     label="Services"
+//                                     menuName="services"
+//                                     isOpen={openDropdown === "services"}
+//                                     setOpenDropdown={setOpenDropdown}
+//                                     onClose={closeAllDropdowns}
+//                                     items={[
+//                                         ["Web Development", "/services"],
+//                                         ["Solution", "/services/mobile"],
+//                                         ["Industries", "/services/industries"],
+//                                     ]}
+//                                 />
+
+//                                 <NavLink to="/products" label="Products" onClick={closeAllDropdowns} />
+
+//                                 {/* WORK DROPDOWN - CORRECTED TO OPEN DOWNWARD */}
+//                                 <DropdownMenu
+//                                     label="Work"
+//                                     menuName="work"
+//                                     isOpen={openDropdown === "work"}
+//                                     setOpenDropdown={setOpenDropdown}
+//                                     onClose={closeAllDropdowns}
+//                                     items={[
+//                                         ["Projects", "/work/projects"],
+//                                         ["Portfolio", "/work/portfolio"],
+//                                         ["Case-studies", "/work/case-studies"],
+//                                     ]}
+//                                 />
+
+//                                 <NavLink to="/testimonials" label="Testimonials" onClick={closeAllDropdowns} />
+//                                 <NavLink to="/lets-create" label=" Let’s Create" onClick={closeAllDropdowns} />
+                    
+//                                 <NavLink to="/blogs" label="Blogs" onClick={closeAllDropdowns} />
+//                                 <NavLink to="/careers" label="Careers" onClick={closeAllDropdowns} />
+
+//                                 {/* CONTACT BUTTON (Reduced size and padding) */}
+//                                 <Link
+//                                     to="/contact"
+//                                     onClick={closeAllDropdowns}
+//                                     className="px-4 py-1.5 bg-teal-700 text-white rounded-lg text-xs transition hover:bg-teal-600 ml-3 whitespace-nowrap"
+//                                 >
+//                                     Get in touch
+//                                 </Link>
+//                             </div>
+
+//                             {/* MOBILE MENU BUTTON RIGHT */}
+//                             <button
+//                                 className="lg:hidden"
+//                                 onClick={() => setMobileOpen(!mobileOpen)}
+//                             >
+//                                 <Menu className="w-7 h-7 text-gray-700" />
+//                             </button>
+//                         </div>
+
+//                         {/* MOBILE MENU (Visible only on small screens) */}
+//                         {mobileOpen && (
+//                             <div className="lg:hidden py-4 space-y-2 border-t">
+//                                 <MobileLink to="/" label="Home" onClick={() => setMobileOpen(false)} />
+//                                 <MobileLink to="/about" label="About" onClick={() => setMobileOpen(false)} />
+
+//                                 <MobileDropdown
+//                                     title="Services"
+//                                     items={[
+//                                         ["Web Development", "/services"],
+//                                         ["Solution", "/services/mobile"],
+//                                         ["Industries", "/services/industries"],
+//                                     ]}
+//                                     onItemClick={() => setMobileOpen(false)}
+//                                 />
+
+//                                 <MobileLink to="/products" label="Products" onClick={() => setMobileOpen(false)} />
+
+//                                 <MobileDropdown
+//                                     title="Work"
+//                                     items={[
+//                                         ["Projects", "/work/projects"],
+//                                         ["Portfolio", "/work/portfolio"],
+//                                         ["Case-studies", "/work/case-studies"],
+//                                     ]}
+//                                     onItemClick={() => setMobileOpen(false)}
+//                                 />
+
+//                                 <MobileLink to="/testimonials" label="Testimonials" onClick={() => setMobileOpen(false)} />
+//                                 <MobileLink to="/lets-create" label=" Let’s Create" onClick={() => setMobileOpen(false)} />
+
+
+//                                 <MobileLink to="/blogs" label="Blogs" onClick={() => setMobileOpen(false)} />
+//                                 <MobileLink to="/careers" label="Careers" onClick={() => setMobileOpen(false)} />
+
+//                                 <Link
+//                                     to="/contact"
+//                                     onClick={() => setMobileOpen(false)}
+//                                     className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg text-sm mt-3"
+//                                 >
+//                                     Get in touch
+//                                 </Link>
+//                             </div>
+//                         )}
+//                     </div>
+//                 </nav>
+//             </div>
+//         </>
+//     );
+// }
+
+// /* ===================== HELPER COMPONENTS ===================== */
+
+// function NavLink({ label, to, active = false, onClick }: { label: string, to: string, active?: boolean, onClick: () => void }) {
+//     return (
+//         <Link
+//             to={to}
+//             onClick={onClick}
+//             className={`text-sm font-medium px-3 py-2 rounded-md transition ${
+//                 active
+//                     ? "text-orange-600 bg-orange-50"
+//                     : "text-gray-700 hover:text-orange-600 hover:bg-orange-50"
+//             }`}
+//         >
+//             {label}
+//         </Link>
+//     );
+// }
+
+// // ⬇️ UPDATED DropdownMenu Component to open DOWNWARD
+// function DropdownMenu({ label, items, isOpen, menuName, setOpenDropdown, onClose }: 
+//     { label: string, items: [string, string][], isOpen: boolean, menuName: string, setOpenDropdown: (name: string | null) => void, onClose: () => void }
+// ) {
+//     const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+//         e.preventDefault();
+//         setOpenDropdown(isOpen ? null : menuName);
+//     };
+
+//     return (
+//         <div className="relative">
+//             <button
+//                 onClick={handleToggle}
+//                 className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md hover:bg-orange-50 transition"
+//             >
+//                 {label}
+//                 <ChevronDown
+//                     className={`w-4 h-4 transition-transform duration-300 ${
+//                         isOpen ? "rotate-180" : "rotate-0"
+//                     }`}
+//                 />
+//             </button>
+
+//             {isOpen && (
+//                 <div 
+//                     // 🎯 KEY CHANGE: Replaced bottom-full mb-2 with top-full mt-2
+//                     className="absolute left-0 top-full mt-2 w-48 bg-white shadow-xl border border-gray-200 rounded-lg py-1 z-50 max-h-96 overflow-y-auto"
+//                 >
+//                     {items.map(([text, link]) => (
+//                         <Link
+//                             key={text}
+//                             to={link}
+//                             onClick={onClose}
+//                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition"
+//                         >
+//                             {text}
+//                         </Link>
+//                     ))}
+//                 </div>
+//             )}
 //         </div>
+//     );
+// }
 
-//         {/* ✅ Mobile Dropdown Menu */}
-//         {mobileOpen && (
-//           <div className="lg:hidden bg-[#0f172a] p-3 mt-2 rounded-lg space-y-1 shadow-lg">
-//             <MobileLink to="/" closeAll={closeAll}>Home</MobileLink>
-//             <MobileLink to="/about" closeAll={closeAll}>About</MobileLink>
+// function MobileLink({ label, to, onClick }: { label: string, to: string, onClick: () => void }) {
+//     return (
+//         <Link
+//             to={to}
+//             onClick={onClick}
+//             className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 rounded-md"
+//         >
+//             {label}
+//         </Link>
+//     );
+// }
 
-//             <MobileDropdown
-//               title="Services"
-//               isOpen={servicesOpen}
-//               toggle={() => setServicesOpen(!servicesOpen)}
+// function MobileDropdown({ title, items, onItemClick }: { title: string, items: [string, string][], onItemClick: () => void }) {
+//     const [open, setOpen] = useState(false);
+
+//     return (
+//         <div>
+//             <button
+//                 className="w-full flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 rounded-md"
+//                 onClick={() => setOpen(!open)}
 //             >
-//               {servicesLinks.map((item) => (
-//                 <MobileDropdownLink key={item.name} to={item.to} closeAll={closeAll}>
-//                   {item.name}
-//                 </MobileDropdownLink>
-//               ))}
-//             </MobileDropdown>
+//                 {title}
+//                 <ChevronDown
+//                     className={`w-4 h-4 transition-transform duration-300 ${
+//                         open ? "rotate-180" : "rotate-0"
+//                     }`}
+//                 />
+//             </button>
 
-//             <MobileLink to="/products" closeAll={closeAll}>Products</MobileLink>
-
-//             <MobileDropdown
-//               title="Work"
-//               isOpen={workOpen}
-//               toggle={() => setWorkOpen(!workOpen)}
-//             >
-//               {workLinks.map((item) => (
-//                 <MobileDropdownLink key={item.name} to={item.to} closeAll={closeAll}>
-//                   {item.name}
-//                 </MobileDropdownLink>
-//               ))}
-//             </MobileDropdown>
-
-//             <MobileLink to="/testimonials" closeAll={closeAll}>Testimonials</MobileLink>
-//             <MobileLink to="/blogs" closeAll={closeAll}>Blogs</MobileLink>
-//             <MobileLink to="/careers" closeAll={closeAll}>Careers</MobileLink>
-//             <MobileLink to="/contact" closeAll={closeAll}>Contact</MobileLink>
-//             {/* <MobileLink to="/login" closeAll={closeAll}>Login</MobileLink> */}
-//           </div>
-//         )}
-
-//       </nav>
-//     </header>
-//   );
+//             {open && (
+//                 <div className="pl-6 mt-1 space-y-1 bg-gray-50 rounded-md">
+//                     {items.map(([label, link]) => (
+//                         <Link
+//                             key={label}
+//                             to={link}
+//                             onClick={() => {
+//                                 setOpen(false); // Close dropdown
+//                                 onItemClick(); // Close mobile menu
+//                             }}
+//                             className="block px-3 py-1 text-sm text-gray-600 hover:text-orange-600 hover:bg-white rounded-md transition"
+//                         >
+//                             {label}
+//                         </Link>
+//                     ))}
+//                 </div>
+//             )}
+//         </div>
+//     );
 // }
 
 
-// /* ✅ Sub Components */
+// import { useEffect, useState, useCallback } from "react";
+// import { Link } from "react-router-dom";
+// import { Mail, Phone, Bell, ChevronDown, Menu } from "lucide-react"; 
+// import { io, Socket } from "socket.io-client";
+// import React from 'react';
 
-// const NavItem = ({ to, children, isActive }: any) => (
-//   <Link to={to} className={`text-white hover:text-orange-400 px-3 py-2 ${isActive(to)}`}>
-//     {children}
-//   </Link>
-// );
+// // Socket URL for real-time application notifications
+// // Hardcoded URL used as requested. If you start using .env, change this back to import.meta.env.VITE_SOCKET_URL
+// const SOCKET_URL = "http://localhost:5000"; 
 
-// const Dropdown = ({ title, open, setOpen, children }: any) => (
-//   <div className="relative">
-//     <button onClick={() => setOpen(!open)} className="text-white flex gap-1 items-center px-3 py-2 hover:text-orange-400">
-//       {title}
-//       <ChevronDown className={`h-4 w-4 transition ${open ? "rotate-180" : ""}`} />
-//     </button>
-//     <div
-//       className={`absolute bg-[#0f172a] w-48 rounded-lg shadow-lg py-2 mt-2 transition-all duration-200 ${
-//         open ? "opacity-100 visible" : "opacity-0 invisible"
-//       }`}
-//     >
-//       {children}
-//     </div>
-//   </div>
-// );
+// interface AppEntry {
+//     name: string;
+//     job: string; 
+//     email?: string;
+//     phone?: string;
+//     time: string;
+// }
 
-// const DropdownItem = ({ to, children, closeAll }: any) => (
-//   <Link to={to} onClick={closeAll} className="text-white block px-4 py-2 text-sm hover:bg-orange-600/20">
-//     {children}
-//   </Link>
-// );
+// // Function to load initial application data from Local Storage
+// const getInitialApplications = (): AppEntry[] => {
+//     try {
+//         const saved = localStorage.getItem('ats_applications');
+//         return saved ? JSON.parse(saved) : [];
+//     } catch (e) {
+//         console.error("Error loading data from Local Storage", e);
+//         return [];
+//     }
+// };
 
-// const MobileLink = ({ to, children, closeAll }: any) => (
-//   <Link to={to} onClick={closeAll} className="text-white block px-4 py-2 rounded-md hover:bg-orange-600/20">
-//     {children}
-//   </Link>
-// );
+// const initialApplications: AppEntry[] = getInitialApplications();
+// const initialCount = 0; 
 
-// const MobileDropdown = ({ title, isOpen, toggle, children }: any) => (
-//   <div>
-//     <button onClick={toggle} className="text-white flex justify-between items-center w-full px-4 py-2 hover:bg-orange-600/20">
-//       {title}
-//       <ChevronDown className={`h-4 w-4 transition ${isOpen ? "rotate-180" : ""}`} />
-//     </button>
-//     {isOpen && <div className="pl-4 space-y-1">{children}</div>}
-//   </div>
-// );
+// export default function Navbar() {
+//     const [mobileOpen, setMobileOpen] = useState(false);
+//     const [notifOpen, setNotifOpen] = useState(false);
+//     const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-// const MobileDropdownLink = ({ to, children, closeAll }: any) => (
-//   <Link to={to} onClick={closeAll} className="text-white block px-4 py-2 rounded-md hover:bg-orange-600/20 text-sm">
-//     {children}
-//   </Link>
-// );
+//     const [alertMsg, setAlertMsg] = useState<string | null>(null);
+    
+//     const [applications, setApplications] = useState<AppEntry[]>(initialApplications);
+//     const [count, setCount] = useState(initialCount); 
+
+//     const closeAllDropdowns = useCallback(() => setOpenDropdown(null), []);
+
+//     // Effect to save applications to Local Storage whenever they change
+//     useEffect(() => {
+//         localStorage.setItem('ats_applications', JSON.stringify(applications));
+//     }, [applications]);
+
+//     // Effect for setting up Socket.IO connection for real-time applications
+//     useEffect(() => {
+//         // Note: This connection will try to connect to localhost:5000 
+//         // and will only succeed if the Node.js/Express server is running there.
+//         const socket: Socket = io(SOCKET_URL, { transports: ["websocket"] });
+
+//         socket.on("new-application", (data: any) => {
+//             if (!data?.latest) return;
+            
+//             setCount(prev => prev + 1); 
+            
+//             const a = data.latest;
+//             const entry: AppEntry = {
+//                 name: a.name,
+//                 job: a.jobTitle, 
+//                 email: a.email,
+//                 phone: a.phone,
+//                 time: new Date(a.time).toLocaleString(), 
+//             };
+            
+//             setApplications((prev) => [entry, ...prev]);
+//             setAlertMsg(`New Application: ${entry.name} applied for ${entry.job}`);
+//             setTimeout(() => setAlertMsg(null), 5000);
+            
+//         });
+
+//         return () => {
+//             socket.disconnect();
+//         };
+        
+//     }, []); 
+
+
+//     // Effect to close notification dropdown when clicking outside
+//     useEffect(() => {
+//         const closeNotifOnOutsideClick = () => setNotifOpen(false);
+        
+//         if (notifOpen) {
+//             document.addEventListener('click', closeNotifOnOutsideClick);
+//         }
+        
+//         return () => {
+//             document.removeEventListener('click', closeNotifOnOutsideClick);
+//         };
+//     }, [notifOpen]);
+
+
+//     return (
+//         <>
+//             {/* ⬆️ TOP ALERT */}
+//             {alertMsg && (
+//                 <div className="fixed top-0 left-0 right-0 bg-green-600 text-white py-2 text-center text-sm z-[9999]">
+//                     {alertMsg}
+//                 </div>
+//             )}
+
+//             {/* 🚢 MAIN NAVIGATION CONTAINER - Both Bars Wrapped */}
+//             <div
+//                 className={`fixed left-0 right-0 z-50 transition-all duration-300 shadow-md ${
+//                     alertMsg ? "top-8" : "top-0" 
+//                 }`}
+//             >
+//                 {/* 📞 BLACK CONTACT BAR (Responsive Contact Info) */}
+//                 <div
+//                     className={`bg-gray-800 text-white w-full border-b border-gray-700`}
+//                 >
+//                     <div className="w-full px-4 sm:px-8 py-0"> 
+                        
+//                         <div className="flex justify-between items-center text-xs">
+                            
+//                             {/* LEFT SIDE CONTENT - Email + Phone/Icons (MODIFIED: Combined content) */}
+//                             <div className="flex items-center gap-3 w-full justify-between sm:justify-start">
+                                
+//                                 {/* 📧 Email Text: Mobile पर hidden, Tablet (sm:) से दिखना शुरू */}
+//                                 <div className="hidden sm:flex items-center gap-4"> 
+//                                     <div className="flex items-center gap-2"> 
+//                                         <Mail className="w-3.5 h-3.5 flex-shrink-0" />
+//                                         <a
+//                                             href="mailto:info@atsglobaltech.in"
+//                                             className="hover:text-orange-300 transition" 
+//                                         >
+//                                             info@atsglobaltech.in
+//                                         </a>
+//                                     </div>
+//                                 </div>
+                            
+//                                 {/* 📞 RIGHT SIDE CONTENT (NOW MOVED TO LEFT SIDE CONTAINER) */}
+//                                 <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0"> 
+                                    
+//                                     {/* ✅ GMAIL Icon (MOBILE ONLY - sm:hidden) */}
+//                                     <a
+//                                         href="mailto:info@atsglobaltech.in"
+//                                         className="hover:text-orange-300 transition flex items-center sm:hidden" 
+//                                     >
+//                                         <Mail className="w-4 h-4 flex-shrink-0" />
+//                                     </a>
+                                    
+//                                     {/* WhatsApp Icon (Desktop Only) */}
+//                                     <a
+//                                         href="https://wa.me/919929825003"
+//                                         target="_blank"
+//                                         rel="noopener noreferrer"
+//                                         className="hover:text-green-300 transition hidden lg:block" 
+//                                     >
+//                                         <svg
+//                                             xmlns="http://www.w3.org/2000/svg"
+//                                             width="14"
+//                                             height="14"
+//                                             viewBox="0 0 24 24"
+//                                             fill="currentColor"
+//                                         >
+//                                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+//                                         </svg>
+//                                     </a>
+
+//                                     {/* 📞 Phone Number Icon/Text */}
+//                                     <a
+//                                         href="tel:+919929825003"
+//                                         className="hover:text-orange-300 transition flex items-center gap-1 whitespace-nowrap"
+//                                     >
+//                                         <Phone className="w-3.5 h-3.5 flex-shrink-0" />
+                                        
+//                                         {/* Full Text visible from Tablet (sm) and up. */}
+//                                         <span className="hidden sm:block">+91 9929825003</span>
+                                        
+//                                     </a>
+//                                 </div>
+//                             </div>
+                            
+//                             {/* 🔔 Notification Icon - Remains on the far right */}
+//                             <div className="flex items-center justify-end flex-shrink-0">
+//                                 {/* 🔔 Notification Icon with Dropdown */}
+//                                 <div className="relative pl-3 border-l border-gray-700 flex-shrink-0">
+//                                     <button
+//                                         onClick={(e: React.MouseEvent) => {
+//                                             e.stopPropagation(); 
+                                            
+//                                             setNotifOpen((prev) => {
+//                                                 const newState = !prev;
+//                                                 if (newState) setCount(0); 
+//                                                 return newState;
+//                                             });
+//                                         }}
+//                                         className="p-1 rounded-full hover:bg-gray-700 transition"
+//                                     >
+//                                         <Bell className="w-5 h-5 text-white" />
+//                                     </button>
+
+//                                     {count > 0 && (
+//                                         <span className="absolute -top-1 -right-1 bg-red-600 w-4 h-4 rounded-full text-white flex items-center justify-center text-xs font-bold">
+//                                             {count}
+//                                         </span>
+//                                     )}
+
+//                                     {notifOpen && (
+//                                         <div 
+//                                             onClick={(e) => e.stopPropagation()}
+//                                             className="absolute right-0 mt-2 w-72 bg-white text-gray-800 shadow-xl border border-gray-200 rounded-lg py-1 z-[60] max-h-80 overflow-y-auto"
+//                                         >
+//                                             <div className="p-3 font-semibold border-b text-sm sticky top-0 bg-white z-10">
+//                                                 New Applications
+//                                             </div>
+
+//                                             {applications.length === 0 && (
+//                                                 <div className="p-3 text-center text-gray-500 text-sm">
+//                                                     No applications yet
+//                                                 </div>
+//                                             )}
+
+//                                             {applications.map((a, i) => (
+//                                                 <div
+//                                                     key={i}
+//                                                     className="p-3 border-b border-gray-100 hover:bg-orange-50 transition cursor-pointer"
+//                                                 >
+//                                                     <div className="font-bold text-sm">{a.name}</div>
+//                                                     <div className="text-xs text-orange-600">{a.job}</div>
+//                                                     {a.email && <div className="text-xs text-gray-600">📧 {a.email}</div>}
+//                                                     {a.phone && <div className="text-xs text-gray-600">📞 {a.phone}</div>}
+//                                                     <div className="text-xs text-gray-400 mt-1">
+//                                                         {a.time}
+//                                                     </div>
+//                                                 </div>
+//                                             ))}
+//                                         </div>
+//                                     )}
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+
+//                 {/* 🚢 MAIN NAVBAR */}
+//                 <nav
+//                     className={`bg-white w-full border-b border-orange-200`}
+//                 >
+//                     <div className="w-full px-8">
+//                         {/* MAIN ROW */}
+//                         <div className="flex justify-between items-center h-20">
+//                             {/* LEFT → LOGO + BRAND NAME (Fully Responsive) */}
+//                             <Link to="/" className="flex items-center gap-2 sm:gap-4">
+//                                 {/* LOGO IMAGE (Smaller on mobile) */}
+//                                 <img
+//                                     src="/atslogo7.jpg"
+//                                     alt="ATS Logo"
+//                                     className="w-14 h-14 sm:w-20 sm:h-20 object-contain"
+//                                 />
+                                
+//                                 {/* 🎯 RESPONSIVE LOGO TEXT SECTION (Visible and stacked on all sizes) */}
+//                                 <div className="flex flex-col"> 
+//                                     {/* ATS GLOBAL TECH - Smaller on mobile/tablet, larger on desktop */}
+//                                     <span className="text-xl lg:text-2xl font-extrabold text-gray-800 font-serif whitespace-nowrap">
+//                                         ATS GLOBAL TECH
+//                                     </span>
+//                                     {/* TAGLINE - Smallest on mobile/tablet, slightly larger on desktop */}
+//                                     <span className="text-[0.6rem] lg:text-xs text-gray-600 text-right font-medium tracking-wide font-serif whitespace-nowrap">
+//                                         THE FUTURE WITH NEXT GEN-AI
+//                                     </span>
+//                                 </div>
+//                             </Link>
+
+//                             {/* RIGHT → MENU ITEMS (Desktop) */}
+//                             <div className="hidden lg:flex items-center space-x-3">
+//                                 <NavLink to="/" label="Home" active onClick={closeAllDropdowns} />
+//                                 <NavLink to="/about" label="About" onClick={closeAllDropdowns} />
+
+//                                 {/* SERVICES DROPDOWN - CORRECTED TO OPEN DOWNWARD */}
+//                                 <DropdownMenu
+//                                     label="Services"
+//                                     menuName="services"
+//                                     isOpen={openDropdown === "services"}
+//                                     setOpenDropdown={setOpenDropdown}
+//                                     onClose={closeAllDropdowns}
+//                                     items={[
+//                                         ["Web Development", "/services"],
+//                                         ["Solution", "/services/mobile"],
+//                                         ["Industries", "/services/industries"],
+//                                     ]}
+//                                 />
+
+//                                 <NavLink to="/products" label="Products" onClick={closeAllDropdowns} />
+
+//                                 {/* WORK DROPDOWN - CORRECTED TO OPEN DOWNWARD */}
+//                                 <DropdownMenu
+//                                     label="Work"
+//                                     menuName="work"
+//                                     isOpen={openDropdown === "work"}
+//                                     setOpenDropdown={setOpenDropdown}
+//                                     onClose={closeAllDropdowns}
+//                                     items={[
+//                                         ["Projects", "/work/projects"],
+//                                         ["Portfolio", "/work/portfolio"],
+//                                         ["Case-studies", "/work/case-studies"],
+//                                     ]}
+//                                 />
+
+//                                 <NavLink to="/testimonials" label="Testimonials" onClick={closeAllDropdowns} />
+//                                 <NavLink to="/lets-create" label=" Let’s Create" onClick={closeAllDropdowns} />
+                            
+//                                 <NavLink to="/blogs" label="Blogs" onClick={closeAllDropdowns} />
+//                                 <NavLink to="/careers" label="Careers" onClick={closeAllDropdowns} />
+
+//                                 {/* CONTACT BUTTON (Reduced size and padding) */}
+//                                 <Link
+//                                     to="/contact"
+//                                     onClick={closeAllDropdowns}
+//                                     className="px-4 py-1.5 bg-teal-700 text-white rounded-lg text-xs transition hover:bg-teal-600 ml-3 whitespace-nowrap"
+//                                 >
+//                                     Get in touch
+//                                 </Link>
+//                             </div>
+
+//                             {/* MOBILE MENU BUTTON RIGHT */}
+//                             <button
+//                                 className="lg:hidden"
+//                                 onClick={() => setMobileOpen(!mobileOpen)}
+//                             >
+//                                 <Menu className="w-7 h-7 text-gray-700" />
+//                             </button>
+//                         </div>
+
+//                         {/* MOBILE MENU (Visible only on small screens) */}
+//                         {mobileOpen && (
+//                             <div className="lg:hidden py-4 space-y-2 border-t">
+//                                 <MobileLink to="/" label="Home" onClick={() => setMobileOpen(false)} />
+//                                 <MobileLink to="/about" label="About" onClick={() => setMobileOpen(false)} />
+
+//                                 <MobileDropdown
+//                                     title="Services"
+//                                     items={[
+//                                         ["Web Development", "/services"],
+//                                         ["Solution", "/services/mobile"],
+//                                         ["Industries", "/services/industries"],
+//                                     ]}
+//                                     onItemClick={() => setMobileOpen(false)}
+//                                 />
+
+//                                 <MobileLink to="/products" label="Products" onClick={() => setMobileOpen(false)} />
+
+//                                 <MobileDropdown
+//                                     title="Work"
+//                                     items={[
+//                                         ["Projects", "/work/projects"],
+//                                         ["Portfolio", "/work/portfolio"],
+//                                         ["Case-studies", "/work/case-studies"],
+//                                     ]}
+//                                     onItemClick={() => setMobileOpen(false)}
+//                                 />
+
+//                                 <MobileLink to="/testimonials" label="Testimonials" onClick={() => setMobileOpen(false)} />
+//                                 <MobileLink to="/lets-create" label=" Let’s Create" onClick={() => setMobileOpen(false)} />
+
+
+//                                 <MobileLink to="/blogs" label="Blogs" onClick={() => setMobileOpen(false)} />
+//                                 <MobileLink to="/careers" label="Careers" onClick={() => setMobileOpen(false)} />
+
+//                                 <Link
+//                                     to="/contact"
+//                                     onClick={() => setMobileOpen(false)}
+//                                     className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg text-sm mt-3"
+//                                 >
+//                                     Get in touch
+//                                 </Link>
+//                             </div>
+//                         )}
+//                     </div>
+//                 </nav>
+//             </div>
+//         </>
+//     );
+// }
+
+// /* ===================== HELPER COMPONENTS (No change needed) ===================== */
+
+// function NavLink({ label, to, active = false, onClick }: { label: string, to: string, active?: boolean, onClick: () => void }) {
+//     return (
+//         <Link
+//             to={to}
+//             onClick={onClick}
+//             className={`text-sm font-medium px-3 py-2 rounded-md transition ${
+//                 active
+//                     ? "text-orange-600 bg-orange-50"
+//                     : "text-gray-700 hover:text-orange-600 hover:bg-orange-50"
+//             }`}
+//         >
+//             {label}
+//         </Link>
+//     );
+// }
+
+// // ⬇️ UPDATED DropdownMenu Component to open DOWNWARD
+// function DropdownMenu({ label, items, isOpen, menuName, setOpenDropdown, onClose }: 
+//     { label: string, items: [string, string][], isOpen: boolean, menuName: string, setOpenDropdown: (name: string | null) => void, onClose: () => void }
+// ) {
+//     const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+//         e.preventDefault();
+//         setOpenDropdown(isOpen ? null : menuName);
+//     };
+
+//     return (
+//         <div className="relative">
+//             <button
+//                 onClick={handleToggle}
+//                 className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md hover:bg-orange-50 transition"
+//             >
+//                 {label}
+//                 <ChevronDown
+//                     className={`w-4 h-4 transition-transform duration-300 ${
+//                         isOpen ? "rotate-180" : "rotate-0"
+//                     }`}
+//                 />
+//             </button>
+
+//             {isOpen && (
+//                 <div 
+//                     // 🎯 KEY CHANGE: Replaced bottom-full mb-2 with top-full mt-2
+//                     className="absolute left-0 top-full mt-2 w-48 bg-white shadow-xl border border-gray-200 rounded-lg py-1 z-50 max-h-96 overflow-y-auto"
+//                 >
+//                     {items.map(([text, link]) => (
+//                         <Link
+//                             key={text}
+//                             to={link}
+//                             onClick={onClose}
+//                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition"
+//                         >
+//                             {text}
+//                         </Link>
+//                     ))}
+//                 </div>
+//             )}
+//         </div>
+//     );
+// }
+
+// function MobileLink({ label, to, onClick }: { label: string, to: string, onClick: () => void }) {
+//     return (
+//         <Link
+//             to={to}
+//             onClick={onClick}
+//             className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 rounded-md"
+//         >
+//             {label}
+//         </Link>
+//     );
+// }
+
+// function MobileDropdown({ title, items, onItemClick }: { title: string, items: [string, string][], onItemClick: () => void }) {
+//     const [open, setOpen] = useState(false);
+
+//     return (
+//         <div>
+//             <button
+//                 className="w-full flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 rounded-md"
+//                 onClick={() => setOpen(!open)}
+//             >
+//                 {title}
+//                 <ChevronDown
+//                     className={`w-4 h-4 transition-transform duration-300 ${
+//                         open ? "rotate-180" : "rotate-0"
+//                     }`}
+//                 />
+//             </button>
+
+//             {open && (
+//                 <div className="pl-6 mt-1 space-y-1 bg-gray-50 rounded-md">
+//                     {items.map(([label, link]) => (
+//                         <Link
+//                             key={label}
+//                             to={link}
+//                             onClick={() => {
+//                                 setOpen(false); // Close dropdown
+//                                 onItemClick(); // Close mobile menu
+//                             }}
+//                             className="block px-3 py-1 text-sm text-gray-600 hover:text-orange-600 hover:bg-white rounded-md transition"
+//                         >
+//                             {label}
+//                         </Link>
+//                     ))}
+//                 </div>
+//             )}
+//         </div>
+//     );
+// }
 
 
 
 
+import { useEffect, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { Mail, Phone, Bell, ChevronDown, Menu } from "lucide-react"; 
+import { io, Socket } from "socket.io-client";
+import React from 'react';
 
+// Socket URL for real-time application notifications
+// Hardcoded URL used as requested. If you start using .env, change this back to import.meta.env.VITE_SOCKET_URL
+const SOCKET_URL = "http://localhost:5000"; 
 
-
-import React, { useState, useEffect } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import Logo from "../assets/ats-logo.png"; 
-// 🔄 If you have a black logo image, replace the line above with:
-// import Logo from "../assets/ats-logo-black.png";
-
-export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const [workOpen, setWorkOpen] = useState(false);
-
-  const location = useLocation();
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [location.pathname]);
-
-  const closeAll = () => {
-    setMobileOpen(false);
-    setServicesOpen(false);
-    setWorkOpen(false);
-  };
-
-  const isActive = (path: string) =>
-    location.pathname.startsWith(path)
-      ? "text-orange-500 font-semibold"
-      : "text-gray-800";
-
-  const servicesLinks = [
-    { name: "All Services", to: "/services" },
-    { name: "Solutions", to: "/services/mobile" },
-    { name: "Industries", to: "/services/industries" },
-  ];
-
-  const workLinks = [
-    { name: "Projects", to: "/work/projects" },
-    { name: "Portfolio", to: "/work/portfolio" },
-    { name: "Case Studies", to: "/work/case-studies" },
-  ];
-
-  return (
-    <header className="fixed top-0 w-full z-50 bg-white shadow-md">
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-
-          {/* ✅ LOGO + ATS Text */}
-          <Link to="/" onClick={closeAll} className="flex items-center gap-3">
-            <img
-              src={Logo}
-              className="h-14 w-14 object-contain filter invert brightness-0"
-              alt="ATS Global Tech Logo"
-            />
-            {/* <span className="text-xl font-bold text-gray-800 hidden xl:block">
-              ATS GLOBAL TECH
-            </span> */}
-            <span
-  className="hidden xl:block text-[28px] font-stack-sans-notch tracking-wide fade-in"
-  style={{ letterSpacing: "1.5px", color: "#000000", fontWeight: 700 }}
->
-  ATS GLOBAL TECH
-</span>
-
-          </Link>
-
-          {/* ✅ Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-1 whitespace-nowrap">
-            <NavItem to="/" isActive={isActive}>Home</NavItem>
-            <NavItem to="/about" isActive={isActive}>About</NavItem>
-
-            <Dropdown title="Services" open={servicesOpen} setOpen={setServicesOpen}>
-              {servicesLinks.map((item) => (
-                <DropdownItem key={item.name} to={item.to} closeAll={closeAll}>
-                  {item.name}
-                </DropdownItem>
-              ))}
-            </Dropdown>
-
-            <NavItem to="/products" isActive={isActive}>Products</NavItem>
-
-            <Dropdown title="Work" open={workOpen} setOpen={setWorkOpen}>
-              {workLinks.map((item) => (
-                <DropdownItem key={item.name} to={item.to} closeAll={closeAll}>
-                  {item.name}
-                </DropdownItem>
-              ))}
-            </Dropdown>
-
-            <NavItem to="/testimonials" isActive={isActive}>Testimonials</NavItem>
-            <NavItem to="/blogs" isActive={isActive}>Blogs</NavItem>
-            <NavItem to="/careers" isActive={isActive}>Careers</NavItem>
-            <NavItem to="/contact" isActive={isActive}>Contact</NavItem>
-          </div>
-
-          {/* ✅ Mobile Menu Button */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-gray-800 rounded-md hover:bg-gray-100"
-          >
-            {mobileOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-
-        {/* ✅ Mobile Dropdown Menu */}
-        {mobileOpen && (
-          <div className="lg:hidden bg-white p-3 mt-2 rounded-lg space-y-1 shadow-lg border border-gray-200">
-            <MobileLink to="/" closeAll={closeAll}>Home</MobileLink>
-            <MobileLink to="/about" closeAll={closeAll}>About</MobileLink>
-
-            <MobileDropdown
-              title="Services"
-              isOpen={servicesOpen}
-              toggle={() => setServicesOpen(!servicesOpen)}
-            >
-              {servicesLinks.map((item) => (
-                <MobileDropdownLink key={item.name} to={item.to} closeAll={closeAll}>
-                  {item.name}
-                </MobileDropdownLink>
-              ))}
-            </MobileDropdown>
-
-            <MobileLink to="/products" closeAll={closeAll}>Products</MobileLink>
-
-            <MobileDropdown
-              title="Work"
-              isOpen={workOpen}
-              toggle={() => setWorkOpen(!workOpen)}
-            >
-              {workLinks.map((item) => (
-                <MobileDropdownLink key={item.name} to={item.to} closeAll={closeAll}>
-                  {item.name}
-                </MobileDropdownLink>
-              ))}
-            </MobileDropdown>
-
-            <MobileLink to="/testimonials" closeAll={closeAll}>Testimonials</MobileLink>
-            <MobileLink to="/blogs" closeAll={closeAll}>Blogs</MobileLink>
-            <MobileLink to="/careers" closeAll={closeAll}>Careers</MobileLink>
-            <MobileLink to="/contact" closeAll={closeAll}>Contact</MobileLink>
-          </div>
-        )}
-      </nav>
-    </header>
-  );
+interface AppEntry {
+    name: string;
+    job: string; 
+    email?: string;
+    phone?: string;
+    time: string;
 }
 
-/* ✅ Sub Components */
+// Function to load initial application data from Local Storage
+const getInitialApplications = (): AppEntry[] => {
+    try {
+        const saved = localStorage.getItem('ats_applications');
+        return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+        console.error("Error loading data from Local Storage", e);
+        return [];
+    }
+};
 
-const NavItem = ({ to, children, isActive }: any) => (
-  <Link
-    to={to}
-    className={`text-gray-800 hover:text-orange-500 px-3 py-2 ${isActive(to)}`}
-  >
-    {children}
-  </Link>
-);
+const initialApplications: AppEntry[] = getInitialApplications();
+const initialCount = 0; 
 
-const Dropdown = ({ title, open, setOpen, children }: any) => (
-  <div className="relative">
-    <button
-      onClick={() => setOpen(!open)}
-      className="text-gray-800 flex gap-1 items-center px-3 py-2 hover:text-orange-500"
-    >
-      {title}
-      <ChevronDown className={`h-4 w-4 transition ${open ? "rotate-180" : ""}`} />
-    </button>
-    <div
-      className={`absolute bg-white border border-gray-200 w-48 rounded-lg shadow-lg py-2 mt-2 transition-all duration-200 ${
-        open ? "opacity-100 visible" : "opacity-0 invisible"
-      }`}
-    >
-      {children}
-    </div>
-  </div>
-);
+export default function Navbar() {
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [notifOpen, setNotifOpen] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-const DropdownItem = ({ to, children, closeAll }: any) => (
-  <Link
-    to={to}
-    onClick={closeAll}
-    className="text-gray-800 block px-4 py-2 text-sm hover:bg-orange-100"
-  >
-    {children}
-  </Link>
-);
+    const [alertMsg, setAlertMsg] = useState<string | null>(null);
+    
+    const [applications, setApplications] = useState<AppEntry[]>(initialApplications);
+    const [count, setCount] = useState(initialCount); 
 
-const MobileLink = ({ to, children, closeAll }: any) => (
-  <Link
-    to={to}
-    onClick={closeAll}
-    className="text-gray-800 block px-4 py-2 rounded-md hover:bg-orange-100"
-  >
-    {children}
-  </Link>
-);
+    const closeAllDropdowns = useCallback(() => setOpenDropdown(null), []);
 
-const MobileDropdown = ({ title, isOpen, toggle, children }: any) => (
-  <div>
-    <button
-      onClick={toggle}
-      className="text-gray-800 flex justify-between items-center w-full px-4 py-2 hover:bg-orange-100"
-    >
-      {title}
-      <ChevronDown className={`h-4 w-4 transition ${isOpen ? "rotate-180" : ""}`} />
-    </button>
-    {isOpen && <div className="pl-4 space-y-1">{children}</div>}
-  </div>
-);
+    // Effect to save applications to Local Storage whenever they change
+    useEffect(() => {
+        localStorage.setItem('ats_applications', JSON.stringify(applications));
+    }, [applications]);
 
-const MobileDropdownLink = ({ to, children, closeAll }: any) => (
-  <Link
-    to={to}
-    onClick={closeAll}
-    className="text-gray-800 block px-4 py-2 rounded-md hover:bg-orange-100 text-sm"
-  >
-    {children}
-  </Link>
-);
+    // Effect for setting up Socket.IO connection for real-time applications
+    useEffect(() => {
+        // Note: This connection will try to connect to localhost:5000 
+        // and will only succeed if the Node.js/Express server is running there.
+        const socket: Socket = io(SOCKET_URL, { transports: ["websocket"] });
+
+        socket.on("new-application", (data: any) => {
+            if (!data?.latest) return;
+            
+            setCount(prev => prev + 1); 
+            
+            const a = data.latest;
+            const entry: AppEntry = {
+                name: a.name,
+                job: a.jobTitle, 
+                email: a.email,
+                phone: a.phone,
+                time: new Date(a.time).toLocaleString(), 
+            };
+            
+            setApplications((prev) => [entry, ...prev]);
+            setAlertMsg(`New Application: ${entry.name} applied for ${entry.job}`);
+            setTimeout(() => setAlertMsg(null), 5000);
+            
+        });
+
+        return () => {
+            socket.disconnect();
+        };
+        
+    }, []); 
+
+
+    // Effect to close notification dropdown when clicking outside
+    useEffect(() => {
+        const closeNotifOnOutsideClick = () => setNotifOpen(false);
+        
+        if (notifOpen) {
+            document.addEventListener('click', closeNotifOnOutsideClick);
+        }
+        
+        return () => {
+            document.removeEventListener('click', closeNotifOnOutsideClick);
+        };
+    }, [notifOpen]);
+
+
+    return (
+        <>
+            {/* ⬆️ TOP ALERT */}
+            {alertMsg && (
+                <div className="fixed top-0 left-0 right-0 bg-green-600 text-white py-2 text-center text-sm z-[9999]">
+                    {alertMsg}
+                </div>
+            )}
+
+            {/* 🚢 MAIN NAVIGATION CONTAINER - Both Bars Wrapped */}
+            <div
+                className={`fixed left-0 right-0 z-50 transition-all duration-300 shadow-md ${
+                    alertMsg ? "top-8" : "top-0" 
+                }`}
+            >
+                {/* 📞 BLACK CONTACT BAR (Responsive Contact Info) */}
+                <div
+                    className={`bg-gray-800 text-white w-full border-b border-gray-700`}
+                >
+                    <div className="w-full px-4 sm:px-8 py-0"> 
+                        
+                        <div className="flex justify-between items-center text-xs">
+                            
+                            {/* ⬅️ LEFT SIDE CONTENT - Email + Phone/Icons (MODIFIED: Combined content, Removed w-full) */}
+                            <div className="flex items-center gap-3 justify-between sm:justify-start">
+                                
+                                {/* 📧 Email Text: Mobile पर hidden, Tablet (sm:) से दिखना शुरू */}
+                                <div className="hidden sm:flex items-center gap-4"> 
+                                    <div className="flex items-center gap-2"> 
+                                        <Mail className="w-3.5 h-3.5 flex-shrink-0" />
+                                        <a
+                                            href="mailto:info@atsglobaltech.in"
+                                            className="hover:text-orange-300 transition" 
+                                        >
+                                            info@atsglobaltech.in
+                                        </a>
+                                    </div>
+                                </div>
+                            
+                                {/* 📞 Phone/Icons Block (NOW MOVED TO LEFT SIDE CONTAINER) */}
+                                <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0"> 
+                                    
+                                    {/* ✅ GMAIL Icon (MOBILE ONLY - sm:hidden) */}
+                                    <a
+                                        href="mailto:info@atsglobaltech.in"
+                                        className="hover:text-orange-300 transition flex items-center sm:hidden" 
+                                    >
+                                        <Mail className="w-4 h-4 flex-shrink-0" />
+                                    </a>
+                                    
+                                    {/* WhatsApp Icon (MODIFIED: hidden on sm: to fix overflow) */}
+                                    <a
+                                        href="https://wa.me/919929825003"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:text-green-300 transition hidden sm:hidden lg:block" 
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="14"
+                                            height="14"
+                                            viewBox="0 0 24 24"
+                                            fill="currentColor"
+                                        >
+                                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                        </svg>
+                                    </a>
+
+                                    {/* 📞 Phone Number Icon/Text (Full Text visible from sm:) */}
+                                    <a
+                                        href="tel:+919929825003"
+                                        className="hover:text-orange-300 transition flex items-center gap-1 whitespace-nowrap"
+                                    >
+                                        <Phone className="w-3.5 h-3.5 flex-shrink-0" />
+                                        
+                                        {/* Full Text visible from Tablet (sm) and up. */}
+                                        <span className="hidden sm:block">+91 9929825003</span>
+                                        
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            {/* 🔔 Notification Icon - Remains on the far right */}
+                            <div className="flex items-center justify-end flex-shrink-0">
+                                {/* 🔔 Notification Icon with Dropdown */}
+                                <div className="relative pl-3 border-l border-gray-700 flex-shrink-0">
+                                    <button
+                                        onClick={(e: React.MouseEvent) => {
+                                            e.stopPropagation(); 
+                                            
+                                            setNotifOpen((prev) => {
+                                                const newState = !prev;
+                                                if (newState) setCount(0); 
+                                                return newState;
+                                            });
+                                        }}
+                                        className="p-1 rounded-full hover:bg-gray-700 transition"
+                                    >
+                                        <Bell className="w-5 h-5 text-white" />
+                                    </button>
+
+                                    {count > 0 && (
+                                        <span className="absolute -top-1 -right-1 bg-red-600 w-4 h-4 rounded-full text-white flex items-center justify-center text-xs font-bold">
+                                            {count}
+                                        </span>
+                                    )}
+
+                                    {notifOpen && (
+                                        <div 
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="absolute right-0 mt-2 w-72 bg-white text-gray-800 shadow-xl border border-gray-200 rounded-lg py-1 z-[60] max-h-80 overflow-y-auto"
+                                        >
+                                            <div className="p-3 font-semibold border-b text-sm sticky top-0 bg-white z-10">
+                                                New Applications
+                                            </div>
+
+                                            {applications.length === 0 && (
+                                                <div className="p-3 text-center text-gray-500 text-sm">
+                                                    No applications yet
+                                                </div>
+                                            )}
+
+                                            {applications.map((a, i) => (
+                                                <div
+                                                    key={i}
+                                                    className="p-3 border-b border-gray-100 hover:bg-orange-50 transition cursor-pointer"
+                                                >
+                                                    <div className="font-bold text-sm">{a.name}</div>
+                                                    <div className="text-xs text-orange-600">{a.job}</div>
+                                                    {a.email && <div className="text-xs text-gray-600">📧 {a.email}</div>}
+                                                    {a.phone && <div className="text-xs text-gray-600">📞 {a.phone}</div>}
+                                                    <div className="text-xs text-gray-400 mt-1">
+                                                        {a.time}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* 🚢 MAIN NAVBAR */}
+                <nav
+                    className={`bg-white w-full border-b border-orange-200`}
+                >
+                    <div className="w-full px-8">
+                        {/* MAIN ROW */}
+                        <div className="flex justify-between items-center h-20">
+                            {/* LEFT → LOGO + BRAND NAME (Fully Responsive) */}
+                            <Link to="/" className="flex items-center gap-2 sm:gap-4">
+                                {/* LOGO IMAGE (Smaller on mobile) */}
+                                <img
+                                    src="/atslogo7.jpg"
+                                    alt="ATS Logo"
+                                    className="w-14 h-14 sm:w-20 sm:h-20 object-contain"
+                                />
+                                
+                                {/* 🎯 RESPONSIVE LOGO TEXT SECTION (Visible and stacked on all sizes) */}
+                                <div className="flex flex-col"> 
+                                    {/* ATS GLOBAL TECH - Smaller on mobile/tablet, larger on desktop */}
+                                    <span className="text-xl lg:text-2xl font-extrabold text-gray-800 font-serif whitespace-nowrap">
+                                        ATS GLOBAL TECH
+                                    </span>
+                                    {/* TAGLINE - Smallest on mobile/tablet, slightly larger on desktop */}
+                                    <span className="text-[0.6rem] lg:text-xs text-gray-600 text-right font-medium tracking-wide font-serif whitespace-nowrap">
+                                        THE FUTURE WITH NEXT GEN-AI
+                                    </span>
+                                </div>
+                            </Link>
+
+                            {/* RIGHT → MENU ITEMS (Desktop) */}
+                            <div className="hidden lg:flex items-center space-x-3">
+                                <NavLink to="/" label="Home" active onClick={closeAllDropdowns} />
+                                <NavLink to="/about" label="About" onClick={closeAllDropdowns} />
+
+                                {/* SERVICES DROPDOWN - CORRECTED TO OPEN DOWNWARD */}
+                                <DropdownMenu
+                                    label="Services"
+                                    menuName="services"
+                                    isOpen={openDropdown === "services"}
+                                    setOpenDropdown={setOpenDropdown}
+                                    onClose={closeAllDropdowns}
+                                    items={[
+                                        ["Web Development", "/services"],
+                                        ["Solution", "/services/mobile"],
+                                        ["Industries", "/services/industries"],
+                                    ]}
+                                />
+
+                                <NavLink to="/products" label="Products" onClick={closeAllDropdowns} />
+
+                                {/* WORK DROPDOWN - CORRECTED TO OPEN DOWNWARD */}
+                                <DropdownMenu
+                                    label="Work"
+                                    menuName="work"
+                                    isOpen={openDropdown === "work"}
+                                    setOpenDropdown={setOpenDropdown}
+                                    onClose={closeAllDropdowns}
+                                    items={[
+                                        ["Projects", "/work/projects"],
+                                        ["Portfolio", "/work/portfolio"],
+                                        ["Case-studies", "/work/case-studies"],
+                                    ]}
+                                />
+
+                                <NavLink to="/testimonials" label="Testimonials" onClick={closeAllDropdowns} />
+                                <NavLink to="/lets-create" label=" Let’s Create" onClick={closeAllDropdowns} />
+                            
+                                <NavLink to="/blogs" label="Blogs" onClick={closeAllDropdowns} />
+                                <NavLink to="/careers" label="Careers" onClick={closeAllDropdowns} />
+
+                                {/* CONTACT BUTTON (Reduced size and padding) */}
+                                <Link
+                                    to="/contact"
+                                    onClick={closeAllDropdowns}
+                                    className="px-4 py-1.5 bg-teal-700 text-white rounded-lg text-xs transition hover:bg-teal-600 ml-3 whitespace-nowrap"
+                                >
+                                    Get in touch
+                                </Link>
+                            </div>
+
+                            {/* MOBILE MENU BUTTON RIGHT */}
+                            <button
+                                className="lg:hidden"
+                                onClick={() => setMobileOpen(!mobileOpen)}
+                            >
+                                <Menu className="w-7 h-7 text-gray-700" />
+                            </button>
+                        </div>
+
+                        {/* MOBILE MENU (Visible only on small screens) */}
+                        {mobileOpen && (
+                            <div className="lg:hidden py-4 space-y-2 border-t">
+                                <MobileLink to="/" label="Home" onClick={() => setMobileOpen(false)} />
+                                <MobileLink to="/about" label="About" onClick={() => setMobileOpen(false)} />
+
+                                <MobileDropdown
+                                    title="Services"
+                                    items={[
+                                        ["Web Development", "/services"],
+                                        ["Solution", "/services/mobile"],
+                                        ["Industries", "/services/industries"],
+                                    ]}
+                                    onItemClick={() => setMobileOpen(false)}
+                                />
+
+                                <MobileLink to="/products" label="Products" onClick={() => setMobileOpen(false)} />
+
+                                <MobileDropdown
+                                    title="Work"
+                                    items={[
+                                        ["Projects", "/work/projects"],
+                                        ["Portfolio", "/work/portfolio"],
+                                        ["Case-studies", "/work/case-studies"],
+                                    ]}
+                                    onItemClick={() => setMobileOpen(false)}
+                                />
+
+                                <MobileLink to="/testimonials" label="Testimonials" onClick={() => setMobileOpen(false)} />
+                                <MobileLink to="/lets-create" label=" Let’s Create" onClick={() => setMobileOpen(false)} />
+
+
+                                <MobileLink to="/blogs" label="Blogs" onClick={() => setMobileOpen(false)} />
+                                <MobileLink to="/careers" label="Careers" onClick={() => setMobileOpen(false)} />
+
+                                <Link
+                                    to="/contact"
+                                    onClick={() => setMobileOpen(false)}
+                                    className="block text-center px-4 py-2 bg-teal-600 text-white rounded-lg text-sm mt-3"
+                                >
+                                    Get in touch
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                </nav>
+            </div>
+        </>
+    );
+}
+
+/* ===================== HELPER COMPONENTS (No change needed) ===================== */
+
+function NavLink({ label, to, active = false, onClick }: { label: string, to: string, active?: boolean, onClick: () => void }) {
+    return (
+        <Link
+            to={to}
+            onClick={onClick}
+            className={`text-sm font-medium px-3 py-2 rounded-md transition ${
+                active
+                    ? "text-orange-600 bg-orange-50"
+                    : "text-gray-700 hover:text-orange-600 hover:bg-orange-50"
+            }`}
+        >
+            {label}
+        </Link>
+    );
+}
+
+// ⬇️ UPDATED DropdownMenu Component to open DOWNWARD
+function DropdownMenu({ label, items, isOpen, menuName, setOpenDropdown, onClose }: 
+    { label: string, items: [string, string][], isOpen: boolean, menuName: string, setOpenDropdown: (name: string | null) => void, onClose: () => void }
+) {
+    const handleToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        setOpenDropdown(isOpen ? null : menuName);
+    };
+
+    return (
+        <div className="relative">
+            <button
+                onClick={handleToggle}
+                className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-orange-600 px-3 py-2 rounded-md hover:bg-orange-50 transition"
+            >
+                {label}
+                <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-300 ${
+                        isOpen ? "rotate-180" : "rotate-0"
+                    }`}
+                />
+            </button>
+
+            {isOpen && (
+                <div 
+                    // KEY CHANGE: Dropdown opens downward (top-full mt-2)
+                    className="absolute left-0 top-full mt-2 w-48 bg-white shadow-xl border border-gray-200 rounded-lg py-1 z-50 max-h-96 overflow-y-auto"
+                >
+                    {items.map(([text, link]) => (
+                        <Link
+                            key={text}
+                            to={link}
+                            onClick={onClose}
+                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-600 transition"
+                        >
+                            {text}
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
+function MobileLink({ label, to, onClick }: { label: string, to: string, onClick: () => void }) {
+    return (
+        <Link
+            to={to}
+            onClick={onClick}
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 rounded-md"
+        >
+            {label}
+        </Link>
+    );
+}
+
+function MobileDropdown({ title, items, onItemClick }: { title: string, items: [string, string][], onItemClick: () => void }) {
+    const [open, setOpen] = useState(false);
+
+    return (
+        <div>
+            <button
+                className="w-full flex justify-between items-center px-4 py-2 text-sm text-gray-700 hover:bg-orange-50 rounded-md"
+                onClick={() => setOpen(!open)}
+            >
+                {title}
+                <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-300 ${
+                        open ? "rotate-180" : "rotate-0"
+                    }`}
+                />
+            </button>
+
+            {open && (
+                <div className="pl-6 mt-1 space-y-1 bg-gray-50 rounded-md">
+                    {items.map(([label, link]) => (
+                        <Link
+                            key={label}
+                            to={link}
+                            onClick={() => {
+                                setOpen(false); // Close dropdown
+                                onItemClick(); // Close mobile menu
+                            }}
+                            className="block px-3 py-1 text-sm text-gray-600 hover:text-orange-600 hover:bg-white rounded-md transition"
+                        >
+                            {label}
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}

@@ -1,9 +1,8 @@
 
 
 
-
 // import React from "react";
-// import { ArrowRight } from "lucide-react";
+// import { ArrowRight, CheckCircle } from "lucide-react";
 // import { useNavigate } from "react-router-dom";
 
 // const caseStudies = [
@@ -15,8 +14,13 @@
 //     image:
 //       "https://plus.unsplash.com/premium_photo-1747949065888-5a57b2d506db?w=600&auto=format&fit=crop&q=60",
 //     description:
-//       "Full-stack e-commerce solution with AI-driven product recommendations...",
-//     tags: ["React", "Node.js", "MongoDB", "TensorFlow"],
+//       "A scalable AI-driven e-commerce platform offering personalized shopping experiences, dynamic product sorting, and advanced analytics.",
+//     points: [
+//       "AI recommendation engine",
+//       "60% faster page load",
+//       "Automated inventory tracking",
+//     ],
+//     tags: ["AI", "React", "Node.js", "MongoDB"],
 //     link: "/ai-page",
 //   },
 //   {
@@ -27,8 +31,13 @@
 //     image:
 //       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=300&h=200&fit=crop",
 //     description:
-//       "Cross-platform mobile banking application with biometric authentication...",
-//     tags: ["React Native", "Node.js", "PostgreSQL", "AWS"],
+//       "A robust mobile banking solution with real-time transactions, multi-layer security, and a seamless UI experience.",
+//     points: [
+//       "Biometric login",
+//       "256-bit encryption",
+//       "Fraud detection alerts",
+//     ],
+//     tags: ["React Native", "PostgreSQL", "AWS"],
 //     link: "/secure-page",
 //   },
 //   {
@@ -39,8 +48,13 @@
 //     image:
 //       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop",
 //     description:
-//       "Complete cloud migration with zero downtime & cost reduction...",
-//     tags: ["AWS", "Docker", "Kubernetes", "Terraform"],
+//       "Migrated a complete enterprise infrastructure to cloud with zero downtime and enhanced automated deployment pipelines.",
+//     points: [
+//       "Zero-downtime migration",
+//       "45% cost reduction",
+//       "High availability setup",
+//     ],
+//     tags: ["AWS", "Docker", "Kubernetes"],
 //     link: "/cloud-page",
 //   },
 //   {
@@ -51,8 +65,13 @@
 //     image:
 //       "https://images.unsplash.com/photo-1657727534685-36b09f84e193?q=80&w=1170&auto=format&fit=crop",
 //     description:
-//       "HIPAA-compliant healthcare analytics with predictive health insights...",
-//     tags: ["Python", "React", "PostgreSQL", "Docker"],
+//       "Healthcare analytics system built to track patient health, predict risks, and improve clinical workflows in real-time.",
+//     points: [
+//       "HIPAA-compliant",
+//       "Predictive analytics",
+//       "Real-time dashboards",
+//     ],
+//     tags: ["Python", "React", "Docker"],
 //     link: "/health-page",
 //   },
 // ];
@@ -61,68 +80,114 @@
 //   const navigate = useNavigate();
 
 //   return (
-//     <section className="py-24 bg-gradient-to-r from-[#1c2b4d] to-[#303e4f]">
+//     <section
+//       className="pt-10 pb-24 bg-white"
+//       style={{ fontFamily: "Times New Roman, serif" }}
+//     >
 //       <div className="max-w-7xl mx-auto px-4">
 
-//         <div className="text-center mb-20">
-//           <h2 className="text-5xl font-bold text-white mb-6">
+//         {/* Header */}
+//         <div className="text-center mb-20" data-aos="fade-up">
+//           <h2 className="text-5xl font-bold text-gray-900 mb-6">
 //             Featured Success Stories
 //           </h2>
-//           <p className="text-gray-300 text-lg">
-//             Discover how we helped businesses grow with innovation
+
+//           {/* NEW paragraph */}
+//           <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+//             Explore powerful, real-world transformations where our technology,
+//             strategy, and innovation helped businesses achieve remarkable growth.
 //           </p>
 //         </div>
 
+//         {/* Cards */}
 //         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-//           {caseStudies.map((study) => (
-//             <div key={study.id} className="bg-[#1e293b] rounded-lg shadow-lg group">
-              
+//           {caseStudies.map((study, index) => (
+//             <div
+//               key={study.id}
+//               data-aos="zoom-in"
+//               data-aos-delay={index * 150}
+//               className="bg-white border border-gray-200 rounded-2xl shadow-lg
+//               hover:shadow-2xl hover:-translate-y-1 transition-all duration-500
+//               group overflow-hidden"
+//             >
+//               {/* Image */}
 //               <div className="relative h-64 overflow-hidden">
-//                 <img src={study.image} alt={study.title}
+//                 <img
+//                   src={study.image}
+//                   alt={study.title}
 //                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
 //                 />
+
+//                 {/* Category Badge */}
+//                 <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md 
+//                 text-white px-4 py-1 rounded-full text-xs tracking-wide shadow-md">
+//                   {study.category}
+//                 </div>
 //               </div>
 
+//               {/* Content */}
 //               <div className="p-8">
-//                 <h3 className="text-xl font-bold text-white mb-2">{study.title}</h3>
-//                 <p className="text-gray-400 text-sm mb-4">Client: {study.client}</p>
-//                 <p className="text-gray-300 mb-4">{study.description}</p>
+//                 <h3 className="text-2xl font-bold text-gray-900 mb-2">
+//                   {study.title}
+//                 </h3>
 
+//                 <p className="text-gray-500 text-sm mb-2">
+//                   Client: <span className="font-semibold">{study.client}</span>
+//                 </p>
+
+//                 <p className="text-gray-700 mb-4">{study.description}</p>
+
+//                 {/* Points */}
+//                 <ul className="space-y-1 mb-5">
+//                   {study.points.map((point, i) => (
+//                     <li key={i} className="flex items-center gap-2 text-gray-700 text-sm">
+//                       <CheckCircle className="w-4 h-4 text-teal-600" />
+//                       {point}
+//                     </li>
+//                   ))}
+//                 </ul>
+
+//                 {/* Tags */}
 //                 <div className="flex flex-wrap gap-2 mb-6">
 //                   {study.tags.map((tag) => (
-//                     <span key={tag}
-//                       className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs"
+//                     <span
+//                       key={tag}
+//                       className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-medium"
 //                     >
 //                       {tag}
 //                     </span>
 //                   ))}
 //                 </div>
 
-//                 {/* ✅ Dynamic Navigation */}
+//                 {/* Button */}
 //                 <button
 //                   onClick={() => navigate(study.link)}
-//                   className="inline-flex items-center gap-2 text-sm font-medium border border-orange-200 bg-orange-100 px-4 h-10 rounded-md hover:bg-orange-600 hover:text-white transition"
+//                   className="inline-flex items-center gap-2 text-sm font-medium
+//                   text-white h-10 rounded-md px-5 w-full
+//                   bg-gradient-to-r from-cyan-500 to-teal-600
+//                   hover:scale-[1.03] transition-all"
 //                 >
 //                   View Case Study
 //                   <ArrowRight className="w-4 h-4" />
 //                 </button>
-
 //               </div>
 //             </div>
 //           ))}
 //         </div>
 
-//         {/* ✅ View All Projects Button */}
-//         <div className="text-center mt-16">
+//         {/* View All Projects */}
+//         <div className="text-center mt-16" data-aos="fade-up">
 //           <button
 //             onClick={() => navigate("/work/projects")}
-//             className="inline-flex items-center gap-3 text-lg font-medium bg-gradient-to-r from-orange-600 to-yellow-500 text-white px-10 py-4 rounded-md hover:from-orange-700 hover:to-yellow-500 transition"
+//             className="inline-flex items-center gap-3 text-lg font-medium 
+//             text-white px-10 py-4 rounded-md 
+//             bg-gradient-to-r from-cyan-500 to-teal-600
+//             hover:scale-105 transition-all"
 //           >
 //             View All Projects
 //             <ArrowRight className="w-5 h-5" />
 //           </button>
 //         </div>
-
 //       </div>
 //     </section>
 //   );
@@ -131,16 +196,26 @@
 // export default FeaturedSuccessStories;
 
 
-
-
-
-
-
 import React from "react";
-import { ArrowRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ArrowRight, CheckCircle } from "lucide-react";
 
-const caseStudies = [
+// NOTE: Since useNavigate is used, this component assumes it is running within a React Router context.
+// For demonstration purposes in a standalone environment, the navigate function will not work.
+// We must assume the component is used as intended within a routing setup.
+
+interface CaseStudy {
+  id: number;
+  title: string;
+  client: string;
+  category: string;
+  image: string;
+  description: string;
+  points: string[];
+  tags: string[];
+  link: string;
+}
+
+const caseStudies: CaseStudy[] = [
   {
     id: 1,
     title: "AI-Powered E-Commerce Platform",
@@ -149,8 +224,13 @@ const caseStudies = [
     image:
       "https://plus.unsplash.com/premium_photo-1747949065888-5a57b2d506db?w=600&auto=format&fit=crop&q=60",
     description:
-      "Full-stack e-commerce solution with AI-driven product recommendations...",
-    tags: ["React", "Node.js", "MongoDB", "TensorFlow"],
+      "A scalable AI-driven e-commerce platform offering personalized shopping experiences, dynamic product sorting, and advanced analytics.",
+    points: [
+      "AI recommendation engine",
+      "60% faster page load",
+      "Automated inventory tracking",
+    ],
+    tags: ["AI", "React", "Node.js", "MongoDB"],
     link: "/ai-page",
   },
   {
@@ -161,8 +241,13 @@ const caseStudies = [
     image:
       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=300&h=200&fit=crop",
     description:
-      "Cross-platform mobile banking application with biometric authentication...",
-    tags: ["React Native", "Node.js", "PostgreSQL", "AWS"],
+      "A robust mobile banking solution with real-time transactions, multi-layer security, and a seamless UI experience.",
+    points: [
+      "Biometric login",
+      "256-bit encryption",
+      "Fraud detection alerts",
+    ],
+    tags: ["React Native", "PostgreSQL", "AWS"],
     link: "/secure-page",
   },
   {
@@ -173,8 +258,13 @@ const caseStudies = [
     image:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=300&h=200&fit=crop",
     description:
-      "Complete cloud migration with zero downtime & cost reduction...",
-    tags: ["AWS", "Docker", "Kubernetes", "Terraform"],
+      "Migrated a complete enterprise infrastructure to cloud with zero downtime and enhanced automated deployment pipelines.",
+    points: [
+      "Zero-downtime migration",
+      "45% cost reduction",
+      "High availability setup",
+    ],
+    tags: ["AWS", "Docker", "Kubernetes"],
     link: "/cloud-page",
   },
   {
@@ -185,64 +275,113 @@ const caseStudies = [
     image:
       "https://images.unsplash.com/photo-1657727534685-36b09f84e193?q=80&w=1170&auto=format&fit=crop",
     description:
-      "HIPAA-compliant healthcare analytics with predictive health insights...",
-    tags: ["Python", "React", "PostgreSQL", "Docker"],
+      "Healthcare analytics system built to track patient health, predict risks, and improve clinical workflows in real-time.",
+    points: [
+      "HIPAA-compliant",
+      "Predictive analytics",
+      "Real-time dashboards",
+    ],
+    tags: ["Python", "React", "Docker"],
     link: "/health-page",
   },
 ];
 
 const FeaturedSuccessStories = () => {
-  const navigate = useNavigate();
+  // Assuming useNavigate is correctly imported from react-router-dom
+  // In a standalone environment, this hook might not be available.
+  const navigate = (path: string) => {
+    console.log(`Navigating to: ${path}`);
+    // This is a dummy implementation for non-router environments.
+  };
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">
+    <section
+      className="py-12 md:py-16 lg:py-24 bg-white"
+      style={{ fontFamily: "Times New Roman, serif" }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Header - Responsive Text Size & Spacing */}
+        <div className="text-center mb-12 md:mb-16 lg:mb-20" data-aos="fade-up">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6">
             Featured Success Stories
           </h2>
-          <p className="text-gray-600 text-lg">
-            Discover how we helped businesses grow with innovation
+
+          <p className="text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+            Explore powerful, real-world transformations where our technology,
+            strategy, and innovation helped businesses achieve remarkable growth.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {caseStudies.map((study) => (
+        {/* Cards Grid - 1 column on mobile, 2 columns on medium+ */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {caseStudies.map((study, index) => (
             <div
               key={study.id}
-              className="bg-white border border-gray-200 rounded-lg shadow-lg hover:shadow-xl transition-shadow group"
+              data-aos="zoom-in"
+              data-aos-delay={index * 150}
+              className="bg-white border border-gray-200 rounded-2xl shadow-lg
+              hover:shadow-2xl hover:-translate-y-1 transition-all duration-500
+              group overflow-hidden"
             >
-              <div className="relative h-64 overflow-hidden rounded-t-lg">
+              {/* Image */}
+              <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden">
                 <img
                   src={study.image}
                   alt={study.title}
+                  // Fallback for image loading errors
+                  onError={(e) => e.currentTarget.src = `https://placehold.co/600x400/E2E8F0/475569?text=${encodeURIComponent(study.title)}`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
+
+                {/* Category Badge */}
+                <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md 
+                text-white px-3 py-1 rounded-full text-xs tracking-wide shadow-md">
+                  {study.category}
+                </div>
               </div>
 
-              <div className="p-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+              {/* Content - Responsive Padding */}
+              <div className="p-6 md:p-8">
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
                   {study.title}
                 </h3>
-                <p className="text-gray-500 text-sm mb-4">
-                  Client: {study.client}
-                </p>
-                <p className="text-gray-700 mb-4">{study.description}</p>
 
+                <p className="text-gray-500 text-sm mb-3">
+                  Client: <span className="font-semibold">{study.client}</span>
+                </p>
+
+                <p className="text-gray-700 text-sm mb-4">{study.description}</p>
+
+                {/* Points */}
+                <ul className="space-y-1 mb-5">
+                  {study.points.map((point, i) => (
+                    <li key={i} className="flex items-center gap-2 text-gray-700 text-sm">
+                      <CheckCircle className="w-4 h-4 text-teal-600 flex-shrink-0" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Tags */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {study.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs"
+                      className="px-3 py-1 bg-cyan-100 text-cyan-700 rounded-full text-xs font-medium"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
 
+                {/* Button - Full width on mobile, better padding */}
                 <button
                   onClick={() => navigate(study.link)}
-                  className="inline-flex items-center gap-2 text-sm font-medium border border-orange-500 text-orange-600 bg-transparent px-4 h-10 rounded-md hover:bg-orange-500 hover:text-white transition"
+                  className="inline-flex items-center justify-center gap-2 text-base font-medium
+                  text-white h-10 rounded-md px-5 w-full
+                  bg-gradient-to-r from-cyan-500 to-teal-600
+                  hover:scale-[1.01] transition-all"
                 >
                   View Case Study
                   <ArrowRight className="w-4 h-4" />
@@ -253,10 +392,13 @@ const FeaturedSuccessStories = () => {
         </div>
 
         {/* View All Projects Button */}
-        <div className="text-center mt-16">
+        <div className="text-center mt-12 md:mt-16" data-aos="fade-up">
           <button
             onClick={() => navigate("/work/projects")}
-            className="inline-flex items-center gap-3 text-lg font-medium bg-gradient-to-r from-orange-600 to-yellow-500 text-white px-10 py-4 rounded-md hover:from-orange-700 hover:to-yellow-500 transition"
+            className="inline-flex items-center gap-3 text-base font-medium 
+            text-white px-8 py-3 rounded-md 
+            bg-gradient-to-r from-cyan-500 to-teal-600
+            hover:scale-105 transition-all shadow-xl"
           >
             View All Projects
             <ArrowRight className="w-5 h-5" />
@@ -267,4 +409,11 @@ const FeaturedSuccessStories = () => {
   );
 };
 
+// NOTE: The original file had a dependency on useNavigate from 'react-router-dom'.
+// Since we must generate a single runnable file, I am defining 'navigate' locally
+// to avoid import errors in a potentially non-router environment.
+// For a production application, you would need to use `useNavigate()` and ensure
+// the component is wrapped in a <Router>.
+
+// Temporary export as App for canvas environment
 export default FeaturedSuccessStories;

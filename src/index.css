@@ -1,9 +1,28 @@
 @import "tailwindcss";
 
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
 
+* {
+    box-sizing: border-box;
+}
+body {
+  width: 100%;
+  overflow-x: hidden; 
+}
+
+
+/* AOS एनीमेशन वाले सभी मुख्य कंटेनरों पर यह लागू करें */
+/* यह उन तत्वों को कंटेन करेगा जो एनीमेशन के दौरान फैल सकते हैं */
+[data-aos] {
+    overflow: hidden; /* या overflow-x: hidden; */
+    /* width: 100%; यह भी मदद कर सकता है */
+}
+
+/* अगर आप एक निश्चित AOS क्लास का उपयोग कर रहे हैं (जैसे 'fade-right'),
+   तो आप उस पर भी सीधे इसे लागू कर सकते हैं: */
+.aos-animate {
+    /* एनीमेशन स्टेट में भी ओवरफ्लो को हैंडल करें */
+    overflow-x: hidden;
+}
 @keyframes gradient-x {
   0%, 100% {
     background-position: 0% 50%;

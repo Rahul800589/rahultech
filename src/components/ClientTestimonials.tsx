@@ -1,5 +1,8 @@
+
+
+
 // import React from "react";
-// import { Star } from "lucide-react";
+// import { Star, Quote } from "lucide-react";
 
 // interface Testimonial {
 //   id: number;
@@ -58,65 +61,80 @@
 
 // const ClientTestimonials: React.FC = () => {
 //   return (
-//     <section className="py-24 bg-gradient-to-r from-[#1c2b4d] to-[#303e4f]">
+//     <section
+//       className="pt-12 pb-24 bg-white"
+//       style={{ fontFamily: "Times New Roman, serif" }}
+//     >
 //       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-//         {/* Section Header */}
-//         <div className="text-center mb-20">
-//           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+
+//         {/* Header */}
+//         <div className="text-center mb-20" data-aos="fade-up">
+//           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
 //             What Our Clients Say
 //           </h2>
-//           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-//             Don't just take our word for it — hear from our satisfied clients
-//             who have experienced remarkable growth through our solutions
+
+//           {/* NEW upgraded professional line */}
+//           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+//             Trusted by leaders across industries, our clients share how our 
+//             expertise helped them accelerate innovation and achieve measurable success.
 //           </p>
 //         </div>
 
 //         {/* Testimonials Grid */}
-//         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-//           {testimonials.map((testimonial) => (
+//         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+//           {testimonials.map((testimonial, index) => (
 //             <div
 //               key={testimonial.id}
-//               className="rounded-lg bg-[#1e293b] shadow-xl hover:shadow-2xl transition-all duration-300"
+//               data-aos="fade-up"
+//               data-aos-delay={index * 150}
+//               className="rounded-2xl bg-white border border-gray-200 shadow-lg 
+//               hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 p-10 
+//               relative overflow-hidden group"
 //             >
-//               <div className="p-10">
-//                 {/* Rating Stars */}
-//                 <div className="flex justify-center mb-6">
-//                   {Array.from({ length: testimonial.rating }).map((_, i) => (
-//                     <Star
-//                       key={i}
-//                       className="w-6 h-6 text-yellow-400 fill-current"
-//                     />
-//                   ))}
-//                 </div>
+//               {/* Floating Quote Icon */}
+//               <div className="absolute top-6 right-6 opacity-10 group-hover:opacity-20 transition-opacity">
+//                 <Quote className="h-12 w-12 text-teal-600" />
+//               </div>
 
-//                 {/* Quote */}
-//                 <blockquote className="text-gray-300 text-lg italic mb-8 leading-relaxed">
-//                   “{testimonial.quote}”
-//                 </blockquote>
-
-//                 {/* Client Info */}
-//                 <div className="flex items-center space-x-4">
-//                   <img
-//                     src={testimonial.image}
-//                     alt={testimonial.name}
-//                     className="w-16 h-16 rounded-full border-4 border-orange-600 object-cover"
+//               {/* Stars */}
+//               <div className="flex justify-center mb-6">
+//                 {Array.from({ length: testimonial.rating }).map((_, i) => (
+//                   <Star
+//                     key={i}
+//                     className="w-6 h-6 text-teal-500 fill-teal-500 drop-shadow-sm"
 //                   />
-//                   <div>
-//                     <h4 className="font-bold text-white text-lg">
-//                       {testimonial.name}
-//                     </h4>
-//                     <p className="text-orange-400 font-medium">
-//                       {testimonial.role}
-//                     </p>
-//                     <p className="text-gray-400 text-sm">
-//                       {testimonial.company}
-//                     </p>
-//                   </div>
+//                 ))}
+//               </div>
+
+//               {/* Quote Content */}
+//               <blockquote className="text-gray-700 text-lg italic mb-6 leading-relaxed">
+//                 “{testimonial.quote}”
+//               </blockquote>
+
+//               {/* NEW extra line */}
+//               <p className="text-sm text-gray-500 mb-6 text-center">
+//                 Empowering businesses through innovation, trust & excellence.
+//               </p>
+
+//               {/* Client Info */}
+//               <div className="flex items-center space-x-4">
+//                 <img
+//                   src={testimonial.image}
+//                   alt={testimonial.name}
+//                   className="w-16 h-16 rounded-full border-4 border-teal-600 object-cover"
+//                 />
+//                 <div>
+//                   <h4 className="font-bold text-gray-900 text-lg">
+//                     {testimonial.name}
+//                   </h4>
+//                   <p className="text-teal-600 font-medium">{testimonial.role}</p>
+//                   <p className="text-gray-500 text-sm">{testimonial.company}</p>
 //                 </div>
 //               </div>
 //             </div>
 //           ))}
 //         </div>
+
 //       </div>
 //     </section>
 //   );
@@ -125,11 +143,8 @@
 // export default ClientTestimonials;
 
 
-
-
-
 import React from "react";
-import { Star } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 
 interface Testimonial {
   id: number;
@@ -188,65 +203,81 @@ const testimonials: Testimonial[] = [
 
 const ClientTestimonials: React.FC = () => {
   return (
-    <section className="py-24 bg-white">
+    // Responsive vertical padding
+    <section
+      className="py-12 md:py-16 lg:py-24 bg-white"
+      style={{ fontFamily: "Times New Roman, serif" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+
+        {/* Header - Responsive Text Size */}
+        <div className="text-center mb-12 md:mb-16 lg:mb-20" data-aos="fade-up">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
             What Our Clients Say
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Don't just take our word for it — hear from our satisfied clients
-            who have experienced remarkable growth through our solutions.
+
+          {/* Upgraded professional line */}
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Trusted by leaders across industries, our clients share how our 
+            expertise helped them accelerate innovation and achieve measurable success.
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {testimonials.map((testimonial) => (
+        {/* Testimonials Grid - 1 column on mobile, 2 columns on medium+ */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="rounded-lg bg-white border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300"
+              data-aos="fade-up"
+              data-aos-delay={index * 150}
+              className="rounded-2xl bg-white border border-gray-200 shadow-xl 
+              hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 p-6 md:p-10 
+              relative overflow-hidden group flex flex-col justify-between"
             >
-              <div className="p-10">
-                {/* Rating Stars */}
-                <div className="flex justify-center mb-6">
+              {/* Floating Quote Icon */}
+              <div className="absolute top-4 right-4 md:top-6 md:right-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                <Quote className="h-10 w-10 md:h-12 md:w-12 text-teal-600" />
+              </div>
+
+              <div>
+                {/* Stars */}
+                <div className="flex justify-start mb-4">
                   {Array.from({ length: testimonial.rating }).map((_, i) => (
                     <Star
                       key={i}
-                      className="w-6 h-6 text-yellow-400 fill-current"
+                      className="w-5 h-5 md:w-6 md:h-6 text-teal-500 fill-teal-500 drop-shadow-sm"
                     />
                   ))}
                 </div>
 
-                {/* Quote */}
-                <blockquote className="text-gray-700 text-lg italic mb-8 leading-relaxed">
+                {/* Quote Content */}
+                <blockquote className="text-gray-700 text-base md:text-lg italic mb-6 leading-relaxed">
                   “{testimonial.quote}”
                 </blockquote>
+              </div>
 
-                {/* Client Info */}
-                <div className="flex items-center space-x-4">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-16 h-16 rounded-full border-4 border-orange-500 object-cover"
-                  />
-                  <div>
-                    <h4 className="font-bold text-gray-900 text-lg">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-orange-600 font-medium">
-                      {testimonial.role}
-                    </p>
-                    <p className="text-gray-500 text-sm">
-                      {testimonial.company}
-                    </p>
-                  </div>
+              {/* Client Info (placed at the bottom) */}
+              <div className="flex items-center space-x-4 pt-4 border-t border-gray-100">
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.name}
+                  onError={(e) => e.currentTarget.src = 'https://placehold.co/64x64/E2E8F0/475569?text=User'}
+                  className="w-14 h-14 md:w-16 md:h-16 rounded-full border-4 border-teal-600 object-cover flex-shrink-0"
+                />
+                <div>
+                  <h4 className="font-bold text-gray-900 text-base md:text-lg">
+                    {testimonial.name}
+                  </h4>
+                  <p className="text-teal-600 font-medium text-sm md:text-base">{testimonial.role}</p>
+                  <p className="text-gray-500 text-xs md:text-sm">{testimonial.company}</p>
                 </div>
               </div>
+
+              {/* Removed extra line to keep the design clean and focused on the testimonial */}
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
